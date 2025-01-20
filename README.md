@@ -1,5 +1,5 @@
 # Shonen Sprint
-Repo for 491 project
+
 
 # Introduction
 "Shonen Sprint" is a fast-paced, side-scrolling endless runner where players navigate a variety of environments inspired by iconic anime settings. The player’s objective is to escape relentless pursuers while avoiding obstacles and collecting power-ups. Each level offers unique visuals and challenges, ensuring an engaging and replayable experience. The anime-inspired art style and diverse locations add a layer of charm to the overall gameplay.
