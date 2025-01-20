@@ -18,15 +18,15 @@ The main character is an anime hero on a quest to escape iconic anime villains. 
 
 # Features/Mechanics
 Core Features (Prototype Scope):
-•	Running and Jumping Mechanics: Players can jump, slide, and sprint to navigate obstacles effectively.
-•	Obstacles: The environment features barriers, pits, and moving hazards that increase in complexity.
-•	Score System: Players earn points based on distance covered and collectibles obtained.
+1.	Running and Jumping Mechanics: Players can jump, slide, and sprint to navigate obstacles effectively.
+2.	Obstacles: The environment features barriers, pits, and moving hazards that increase in complexity.
+3.	Score System: Players earn points based on distance covered and collectibles obtained.
 Expanded Features (Final Deliverable):
-•	Levels: Procedurally generated stages with unique obstacles tailored to each theme.
-•	Power-ups: Speed boosts, shields, magnet effects (for auto-collecting items), and double points.
-•	Character Customization: Unlockable outfits and skins inspired by anime archetypes.
-•	Leaderboard: Compare scores with players worldwide.
-•	Pursuer AI: Adaptive pursuers with distinct mechanics for each level (e.g., speed increases, environmental traps).
+1.	Levels: Procedurally generated stages with unique obstacles tailored to each theme.
+2.	Power-ups: Speed boosts, shields, magnet effects (for auto-collecting items), and double points.
+3.	Character Customization: Unlockable outfits and skins inspired by anime archetypes.
+4.	Leaderboard: Compare scores with players worldwide.
+5.	Pursuer AI: Adaptive pursuers with distinct mechanics for each level (e.g., speed increases, environmental traps).
 
 # Levels
 Each level features its own environment, hazards, and musical theme:
