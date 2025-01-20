@@ -1,4 +1,4 @@
-# 491-Project
+# Shonen Sprint
 Repo for 491 project
 
 # Introduction
