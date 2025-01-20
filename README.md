@@ -31,19 +31,19 @@ Expanded Features (Final Deliverable):
 # Levels
 Each level features its own environment, hazards, and musical theme:
 1.	Shibuya Station (Tokyo):
-  Obstacles: Trains, barriers, and commuters.
-	Pursuer: Security guards on Segways.
-	Music: Upbeat J-Pop-inspired track.
+-  	Obstacles: Trains, barriers, and commuters.
+-	Pursuer: Security guards on Segways.
+-	Music: Upbeat J-Pop-inspired track.
 2.	Kyoto Temples:
-	Obstacles: Falling lanterns, narrow bridges, and temple stairs.
-	Pursuer: Monks throwing prayer beads.
-	Music: Traditional Japanese instrumentals.
+-	Obstacles: Falling lanterns, narrow bridges, and temple stairs.
+-	Pursuer: Monks throwing prayer beads.
+-	Music: Traditional Japanese instrumentals.
 3.	Soul Society (Bleach):
-	Obstacles: Spirit walls, ghostly flames, and crumbling platforms.
-	Pursuer: A iconic bleach villian.
+-	Obstacles: Spirit walls, ghostly flames, and crumbling platforms.
+-	Pursuer: A iconic bleach villian.
 4.	Planet Namek (DBZ):
-	Obstacles: Falling boulders, craters, and energy blasts.
-	Pursuer: A Saiyan-inspired enemy shooting energy waves.
+-	Obstacles: Falling boulders, craters, and energy blasts.
+-	Pursuer: A Saiyan-inspired enemy shooting energy waves.
 
 
 # Creators: Faiz Ahmed, Aly Badr, Dmitry Khotinskiy, Elle Pavenko
