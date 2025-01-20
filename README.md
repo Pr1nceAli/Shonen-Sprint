@@ -6,7 +6,7 @@ Repo for 491 project
 
 # Gameplay
 At the start menu, the player can choose from a roster of customizable anime characters, each with unique animations and abilities. Once a level begins, players must utilize precise timing and reflexes to jump, slide, or sprint to evade pursuers and overcome obstacles. The chase intensifies as the player progresses, with increasing difficulty and environmental complexity.
-  Core Loop:
+*  Core Loop:
     1.	Choose a character and start the level.
     2.	Sprint through dynamically generated environments.
     3.	Avoid obstacles, collect items, and use power-ups.
