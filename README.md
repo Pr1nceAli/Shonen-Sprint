@@ -1,10 +1,10 @@
 # 491-Project
 Repo for 491 project
 
-#Introduction
+# Introduction
 "Chibi Chase/Shonen Sprint/Pixel Pursuit" is a fast-paced, side-scrolling endless runner where players navigate a variety of environments inspired by iconic anime settings. The player’s objective is to escape relentless pursuers while avoiding obstacles and collecting power-ups. Each level offers unique visuals and challenges, ensuring an engaging and replayable experience. The anime-inspired art style and diverse locations add a layer of charm to the overall gameplay.
 ________________________________________
-#Gameplay
+# Gameplay
 At the start menu, the player can choose from a roster of customizable anime characters, each with unique animations and abilities. Once a level begins, players must utilize precise timing and reflexes to jump, slide, or sprint to evade pursuers and overcome obstacles. The chase intensifies as the player progresses, with increasing difficulty and environmental complexity.
 Core Loop:
 1.	Choose a character and start the level.
@@ -13,10 +13,10 @@ Core Loop:
 4.	Escape from the pursuers or get caught (leading to game over or a restart).
 5.	Successfully finish levels to unlock new locations and rewards.
 ________________________________________
-#Goal/Story
+# Goal/Story
 The main character is an anime hero on a quest to escape iconic anime villains. Starting in Tokyo’s bustling Shibuya Station, the protagonist travels across cities, mountains, and mystical lands. Each level represents a thematic homage to anime culture—from dodging trains in Shibuya to navigating the mystical landscapes of Konoha and Soul Society. The ultimate goal is to complete all levels, achieve the highest score, and unlock hidden secrets tied to the character’s backstory.
 ________________________________________
-#Features/Mechanics
+# Features/Mechanics
 Core Features (Prototype Scope):
 •	Running and Jumping Mechanics: Players can jump, slide, and sprint to navigate obstacles effectively.
 •	Obstacles: The environment features barriers, pits, and moving hazards that increase in complexity.
@@ -28,7 +28,7 @@ Expanded Features (Final Deliverable):
 •	Leaderboard: Compare scores with players worldwide.
 •	Pursuer AI: Adaptive pursuers with distinct mechanics for each level (e.g., speed increases, environmental traps).
 ________________________________________
-#Levels
+# Levels
 Each level features its own environment, hazards, and musical theme:
 1.	Shibuya Station (Tokyo):
 o	Obstacles: Trains, barriers, and commuters.
@@ -46,4 +46,4 @@ o	Obstacles: Falling boulders, craters, and energy blasts.
 o	Pursuer: A Saiyan-inspired enemy shooting energy waves.
 ________________________________________
 
-#Creators: Faiz Ahmed, Aly Badr, Dmitry Khotinskiy, Elle Pavenko
+# Creators: Faiz Ahmed, Aly Badr, Dmitry Khotinskiy, Elle Pavenko
