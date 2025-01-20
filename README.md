@@ -2,16 +2,16 @@
 Repo for 491 project
 
 # Introduction
-"Chibi Chase/Shonen Sprint/Pixel Pursuit" is a fast-paced, side-scrolling endless runner where players navigate a variety of environments inspired by iconic anime settings. The player’s objective is to escape relentless pursuers while avoiding obstacles and collecting power-ups. Each level offers unique visuals and challenges, ensuring an engaging and replayable experience. The anime-inspired art style and diverse locations add a layer of charm to the overall gameplay.
+"Shonen Sprint" is a fast-paced, side-scrolling endless runner where players navigate a variety of environments inspired by iconic anime settings. The player’s objective is to escape relentless pursuers while avoiding obstacles and collecting power-ups. Each level offers unique visuals and challenges, ensuring an engaging and replayable experience. The anime-inspired art style and diverse locations add a layer of charm to the overall gameplay.
 
 # Gameplay
 At the start menu, the player can choose from a roster of customizable anime characters, each with unique animations and abilities. Once a level begins, players must utilize precise timing and reflexes to jump, slide, or sprint to evade pursuers and overcome obstacles. The chase intensifies as the player progresses, with increasing difficulty and environmental complexity.
-Core Loop:
-1.	Choose a character and start the level.
-2.	Sprint through dynamically generated environments.
-3.	Avoid obstacles, collect items, and use power-ups.
-4.	Escape from the pursuers or get caught (leading to game over or a restart).
-5.	Successfully finish levels to unlock new locations and rewards.
+  Core Loop:
+    1.	Choose a character and start the level.
+    2.	Sprint through dynamically generated environments.
+    3.	Avoid obstacles, collect items, and use power-ups.
+    4.	Escape from the pursuers or get caught (leading to game over or a restart).
+    5.	Successfully finish levels to unlock new locations and rewards.
 
 # Goal/Story
 The main character is an anime hero on a quest to escape iconic anime villains. Starting in Tokyo’s bustling Shibuya Station, the protagonist travels across cities, mountains, and mystical lands. Each level represents a thematic homage to anime culture—from dodging trains in Shibuya to navigating the mystical landscapes of Konoha and Soul Society. The ultimate goal is to complete all levels, achieve the highest score, and unlock hidden secrets tied to the character’s backstory.
