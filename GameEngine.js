@@ -1,4 +1,4 @@
-const Entity = require('./Entity')
+// const Entity = require('./Entity')
 
 /**
  * @typedef {Object} GameEngineOptions
@@ -205,6 +205,15 @@ class GameEngine {
 		this.update()
 		this.draw()
 	}
+
+	start() {
+        this.running = true;
+        const gameLoop = () => {
+            this.renderLoop();
+            requestAnimFrame(gameLoop, this.ctx.canvas);
+        };
+        gameLoop();
+    };
 }
 
-module.exports = GameEngine
+// module.exports = GameEngine
