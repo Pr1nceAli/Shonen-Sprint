@@ -2,67 +2,67 @@ const Entity = require('./Entity')
 
 /**
  * @typedef {Object} GameEngineOptions
- * @property {boolean} debugging - Prints all steps in the console
+ * @property {boolean} debugging - Prints all steps in the console.
  */
 
 /**
  * @typedef {Object} PositionalCoordinates
- * @property {number} x - The x coordinate
- * @property {number} y - The y coordinate
+ * @property {number} x - The x coordinate.
+ * @property {number} y - The y coordinate.
  */
 
-/** Class representing a game engine */
+/** Class representing a game engine. */
 class GameEngine {
 	/**
-	 * Create a new game engine
-	 * @param {CanvasRenderingContext2D} ctx - The context of the canvas
-	 * @param {GameEngineOptions | null} options - Options for the game engine
+	 * Create a new game engine.
+	 * @param {CanvasRenderingContext2D} ctx - The context of the canvas.
+	 * @param {GameEngineOptions | null} options - Options for the game engine.
 	 */
 	constructor(ctx, options = { debugging: false }) {
 		/**
-		 * The context of the canvas
+		 * The context of the canvas.
 		 * @type {CanvasRenderingContext2D}
 		 */
 		this.ctx = ctx
 
 		/**
-		 * Stores the entities of the game
+		 * Stores the entities of the game.
 		 * @type {Array<Object>}
 		 */
 		this.entities = []
 
 		/**
-		 * Stores the coordinates of the click event
+		 * Stores the coordinates of the click event.
 		 * @type {PositionalCoordinates}
 		 */
 		this.click = null
 
 		/**
-		 * Stores the coordinates of the right click event
+		 * Stores the coordinates of the right click event.
 		 * @type {PositionalCoordinates}
 		 */
 		this.rightClick = null
 
 		/**
-		 * Stores the coordinates of the mouse move event
+		 * Stores the coordinates of the mouse move event.
 		 * @type {PositionalCoordinates}
 		 */
 		this.mouse = null
 
 		/**
-		 * Stores the wheel event
+		 * Stores the wheel event.
 		 * @type {WheelEvent}
 		 */
 		this.wheel = null
 
 		/**
-		 * Stores the keys that are currently pressed
+		 * Stores the keys that are currently pressed.
 		 * @type {{ [key: string]: boolean }}
 		 */
 		this.keys = {}
 
 		/**
-		 * Options for the game engine
+		 * Additional options for the game engine.
 		 * @type {GameEngineOptions}
 		 */
 		this.options = options
@@ -73,9 +73,9 @@ class GameEngine {
 	}
 
 	/**
-	 * Log a message to the console if debugging is enabled
-	 * @param {string} message - The message to log
-	 * @param {any} value - The debugging value to log
+	 * Log a message to the console if debugging is enabled.
+	 * @param {string} message - The message to log.
+	 * @param {any} value - The debugging value to log.
 	 */
 	debug(message = '', value) {
 		if (!this.debugging) return
@@ -88,7 +88,7 @@ class GameEngine {
 	}
 
 	/**
-	 * Initializes the input events of the game
+	 * Initializes the input events of the game.
 	 */
 	initInput() {
 		this.ctx.canvas.addEventListener('mousemove', e => {
@@ -129,9 +129,9 @@ class GameEngine {
 	}
 
 	/**
-	 * Get the coordinate position of the event
-	 * @param {MouseEvent | WheelEvent | KeyboardEvent} e - The event
-	 * @returns {PositionalCoordinates} The x and y coordinates of the event
+	 * Get the coordinate position of the event.
+	 * @param {MouseEvent | WheelEvent | KeyboardEvent} e - The event.
+	 * @returns {PositionalCoordinates} The x and y coordinates of the event.
 	 */
 	getXY = e => {
 		if (!(
@@ -149,8 +149,8 @@ class GameEngine {
 	}
 
 	/**
-	 * Add an entity to the game
-	 * @param {Entity} entity - The entity to add
+	 * Add an entity to the game.
+	 * @param {Entity} entity - The entity to add.
 	 */
 	addEntity(entity) {
 		if (!(entity instanceof Entity)) {
@@ -161,8 +161,8 @@ class GameEngine {
 	}
 
 	/**
-	 * Remove an entity from the game
-	 * @param {Entity} entity - The entity to remove
+	 * Remove an entity from the game.
+	 * @param {Entity} entity - The entity to remove.
 	 */
 	removeEntity(entity) {
 		if (!(entity instanceof Entity)) return
@@ -171,7 +171,7 @@ class GameEngine {
 	}
 
 	/**
-	 * Draw the entities of the game (starting from the last entity)
+	 * Draw the entities of the game (starting from the last entity).
 	 */
 	draw() {
 		// Clear the canvas
@@ -184,7 +184,7 @@ class GameEngine {
 	}
 
 	/**
-	 * Update the entities of the game
+	 * Update the entities of the game.
 	 */
 	update() {
 		this.entities.forEach(entity => {
@@ -198,7 +198,7 @@ class GameEngine {
 	}
 
 	/**
-	 * Run the render loop of the game
+	 * Run the render loop of the game.
 	 */
 	renderLoop() {
 		this.clockTick = this.timer.tick()
