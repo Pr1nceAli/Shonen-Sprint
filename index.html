@@ -12,7 +12,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: rgba(0, 0, 0, 1);
+                /* background: black; */
             }
 
             span {
@@ -24,7 +24,9 @@
             }
 
             canvas {
-                background: rgba(0, 0, 0, 1);
+                background: url('Assets/bg.png');
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
                 border: 1px solid rgba(255, 255, 255, 1);
                 transform-origin: center;
             }
@@ -40,5 +42,14 @@
         </span>
 
         <script src='index.js'></script>
+        <script type="text/javascript" src="./assetmanager.js"></script>
+        <script type="text/javascript" src="./timer.js"></script>
+        <script type="text/javascript" src="./Entity.js"></script>
+        <script type="text/javascript" src="./GameEngine.js"></script>
+        <script type="text/javascript" src="./util.js"></script>
+        <script type="text/javascript" src="./animator.js"></script>
+        <script type="text/javascript" src="./Goku.js"></script>
+        <script type="text/javascript" src="./main.js"></script>
+
     </body>
 </html>
