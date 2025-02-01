@@ -9,25 +9,25 @@ class AssetManager {
 		 * The number of assets that have been successfully downloaded.
 		 * @type {number}
 		 */
-		successCount = 0
+		this.successCount = 0
 
 		/**
 		 * The number of assets that have failed to download.
 		 * @type {number}
 		 */
-		errorCount = 0
+		this.errorCount = 0
 
 		/**
 		 * The cache of assets that have been downloaded.
 		 * @type {Object.<string, ImageElement>}
 		 */
-		cache = {}
+		this.cache = {}
 
 		/**
 		 * The download queue.
 		 * @type {Array.<string>}
 		 */
-		downloadQueue = []
+		this.downloadQueue = []
 
 		/**
 		 * Additional options for the asset manager.
@@ -115,3 +115,5 @@ class AssetManager {
 		return this.cache[path]
 	}
 }
+
+export default AssetManager
