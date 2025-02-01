@@ -11,7 +11,7 @@ class Goku extends Entity {
          236, 272, 46, 60, 4, 0.15);
          
         this.jump_animator = new Animator(ASSET_MANAGER.getAsset("./Assets/goku_jump.png"),
-         5, 0, 36, 64, 5, .10); // Updated to include all jump frames
+         5, 0, 36, 64, 4, .25); // Updated to include all jump frames
 
          this.x = 100;
          this.y = 820; // Ground level
