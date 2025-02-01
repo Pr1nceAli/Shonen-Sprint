@@ -12,6 +12,7 @@ class Goku extends Entity {
          
         this.jump_animator = new Animator(ASSET_MANAGER.getAsset("./Assets/goku_jump.png"),
          5, 0, 36, 64, 4, .25); // Updated to include all jump frames
+         5, 0, 36, 64, 5, .10);
 
          this.x = 100;
          this.y = 820; // Ground level
@@ -19,7 +20,7 @@ class Goku extends Entity {
          this.velocity = 0;
          this.isJumping = false;
          this.jumpVelocity = 0;
-         this.gravity = 1500; // Increased for smooth physics
+         this.gravity = 1500; 
          this.initialJumpVelocity = -600; // Higher jump
      };
  
@@ -41,7 +42,7 @@ class Goku extends Entity {
          
          if (this.isJumping) {
              this.y += this.jumpVelocity * this.game.clockTick;
-             this.jumpVelocity += this.gravity * this.game.clockTick; // Gravity applied gradually
+             this.jumpVelocity += this.gravity * this.game.clockTick; 
              
              if (this.y >= 820) { // Reset when landing
                  this.y = 820;
