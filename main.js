@@ -2,6 +2,7 @@
 const ASSET_MANAGER = new AssetManager();
 
 ASSET_MANAGER.queueDownload("./Assets/goku running.png");
+ASSET_MANAGER.queueDownload("./Assets/goku_jump.png");
 ASSET_MANAGER.queueDownload("./Assets/goku_sprites.png");
 
 ASSET_MANAGER.downloadAll(() => {
