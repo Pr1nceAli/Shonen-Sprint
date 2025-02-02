@@ -254,9 +254,11 @@ class GameEngine {
 
 		if (
 			playerX + playerEntity.width * playerEntity.scale - playerEntity.paddingX * 2 >= collidableX &&
+			playerX <= collidableX + collidableEntity.width * collidableEntity.scale - collidableEntity.paddingX * 2 &&
 			playerY + playerEntity.height * playerEntity.scale - playerEntity.paddingY * 2 >= collidableY &&
-			playerX <= collidableX + collidableEntity.width * collidableEntity.scale - collidableEntity.paddingX * 2
-		) colliding = true
+			playerY <= collidableY + collidableEntity.height * collidableEntity.scale - collidableEntity.paddingY * 2
+		) colliding = true;
+		
 
 		console.log(colliding)
 		return colliding
