@@ -41,3 +41,5 @@ class Animator {
         return (this.elapsedTime >= this.totalTime);
     };
 };
+
+export default Animator

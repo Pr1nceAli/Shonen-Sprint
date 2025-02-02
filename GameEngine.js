@@ -1,5 +1,8 @@
 // const Entity = require('./Entity')
 
+import Timer from "./timer.js"
+import Entity from "./Entity.js"
+
 /**
  * @typedef {Object} GameEngineOptions
  * @property {boolean} debugging - Prints all steps in the console.
@@ -216,4 +219,5 @@ class GameEngine {
     };
 }
 
+export default GameEngine
 // module.exports = GameEngine

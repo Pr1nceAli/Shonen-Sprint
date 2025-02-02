@@ -1,4 +1,7 @@
 import AssetManager from './classes/AssetManager.js'
+import GameEngine from './GameEngine.js'
+import Goku from './Goku.js'
+import { BackgroundLayer, Background } from './classes/Background.js'
 
 // Initialize properties of the game
 const gameProperties = {
@@ -16,12 +19,32 @@ const resizeCanvas = () => {
 	canvas.style.transform = `scale(${ratio})`
 }
 
+const ASSET_MANAGER = new AssetManager()
+
+
+const createBg = (game) => {
+	let layers = [
+		new BackgroundLayer(ASSET_MANAGER.getAsset('./Assets/bg/hills/layer_01.png'), .2),
+		new BackgroundLayer(ASSET_MANAGER.getAsset('./Assets/bg/hills/layer_02.png'), .5),
+		new BackgroundLayer(ASSET_MANAGER.getAsset('./Assets/bg/hills/layer_03.png'), .75),
+		new BackgroundLayer(ASSET_MANAGER.getAsset('./Assets/bg/hills/layer_04.png'), 1),
+		new BackgroundLayer(ASSET_MANAGER.getAsset('./Assets/bg/hills/layer_05.png'), 2),
+		new BackgroundLayer(ASSET_MANAGER.getAsset('./Assets/bg/hills/layer_06.png'), 3),
+	];
+
+	return new Background(game, layers);
+}
+
 const startGame = () => {
 	// Initialize the game engine
 	const gameEngine = new GameEngine(ctx)
 
+	let player = new Goku(gameEngine);
+	gameEngine.player = player;
+
 	// Add entities to the game engine
-	gameEngine.addEntity(new Goku(gameEngine))
+	gameEngine.addEntity(player)
+	gameEngine.addEntity(createBg(gameEngine));
 
 	// Start the game engine
 	gameEngine.start()
@@ -40,15 +63,22 @@ const initGame = () => {
 	ctx.imageSmoothingEnabled = gameProperties.imageSmoothing
 
 	// Initialize the asset manager
-	const assetManager = new AssetManager()
 
 	// Load assets
-	assetManager.queueDownload('./Assets/goku running.png')
-	assetManager.queueDownload('./Assets/goku_jump.png')
-	assetManager.queueDownload('./Assets/goku_sprites.png')
+	ASSET_MANAGER.queueDownload('./Assets/goku running.png')
+	ASSET_MANAGER.queueDownload('./Assets/goku_jump.png')
+	ASSET_MANAGER.queueDownload('./Assets/goku_sprites.png')
+
+	// load bg
+	ASSET_MANAGER.queueDownload('./Assets/bg/hills/layer_01.png');
+	ASSET_MANAGER.queueDownload('./Assets/bg/hills/layer_02.png');
+	ASSET_MANAGER.queueDownload('./Assets/bg/hills/layer_03.png');
+	ASSET_MANAGER.queueDownload('./Assets/bg/hills/layer_04.png');
+	ASSET_MANAGER.queueDownload('./Assets/bg/hills/layer_05.png');
+	ASSET_MANAGER.queueDownload('./Assets/bg/hills/layer_06.png');
 
 	// Download assets and start the game
-	assetManager.downloadAll(startGame)
+	ASSET_MANAGER.downloadAll(startGame)
 }
 
 // Set canvas and its context to variable
@@ -58,3 +88,5 @@ const ctx = canvas?.getContext('2d')
 if (ctx instanceof CanvasRenderingContext2D) {
 	initGame()
 }
+
+export {ASSET_MANAGER}
