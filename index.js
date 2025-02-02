@@ -1,11 +1,8 @@
+import gameProperties from './gameProperties.js'
 import AssetManager from './classes/AssetManager.js'
-
-// Initialize properties of the game
-const gameProperties = {
-	height: 1080,
-	width: 1920,
-	imageSmoothing: false
-}
+import GameEngine from './classes/GameEngine.js'
+import Goku from './classes/Goku.js'
+import Obstacle from './classes/Obstacle.js'
 
 // Initialize function for dinamically scalling the canvas to fit the window
 const resizeCanvas = () => {
@@ -16,14 +13,11 @@ const resizeCanvas = () => {
 	canvas.style.transform = `scale(${ratio})`
 }
 
+// Initialize function to start the game
 const startGame = () => {
-	// Initialize the game engine
-	const gameEngine = new GameEngine(ctx)
-
-	// Add entities to the game engine
-	gameEngine.addEntity(new Goku(gameEngine))
-
-	// Start the game engine
+	const gameEngine = new GameEngine(ctx, assetManager)
+	gameEngine.addEntity(new Goku(gameEngine, 100, 820, 3))
+	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 905, 0.15))
 	gameEngine.start()
 }
 
@@ -39,13 +33,11 @@ const initGame = () => {
 	// Set image smoothing for the context
 	ctx.imageSmoothingEnabled = gameProperties.imageSmoothing
 
-	// Initialize the asset manager
-	const assetManager = new AssetManager()
-
 	// Load assets
-	assetManager.queueDownload('./Assets/goku running.png')
-	assetManager.queueDownload('./Assets/goku_jump.png')
-	assetManager.queueDownload('./Assets/goku_sprites.png')
+	assetManager.queueDownload('/assets/goku/sprites.png')
+	assetManager.queueDownload('/assets/goku/running.png')
+	assetManager.queueDownload('/assets/goku/jumping.png')
+	assetManager.queueDownload('/assets/goku/obstacle.png')
 
 	// Download assets and start the game
 	assetManager.downloadAll(startGame)
@@ -55,6 +47,10 @@ const initGame = () => {
 const canvas = document.querySelector('canvas')
 const ctx = canvas?.getContext('2d')
 
+// Initialize the asset manager
+const assetManager = new AssetManager()
+
+// If the context is a CanvasRenderingContext2D, initialize the game
 if (ctx instanceof CanvasRenderingContext2D) {
 	initGame()
 }
