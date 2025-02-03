@@ -39,11 +39,11 @@ const initGame = () => {
 
 	// Load assets
 	
-	assetManager.queueDownload('/assets/goku/sprites.png')
-	assetManager.queueDownload('/assets/goku/running.png')
-	assetManager.queueDownload('/assets/goku/jumping.png')
-	assetManager.queueDownload('/assets/goku/obstacle.png')
-	assetManager.queueDownload('/assets/buu/buu.png')
+	assetManager.queueDownload('assets/goku/sprites.png')
+	assetManager.queueDownload('assets/goku/running.png')
+	assetManager.queueDownload('assets/goku/jumping.png')
+	assetManager.queueDownload('assets/goku/obstacle.png')
+	assetManager.queueDownload('assets/buu/buu.png')
 	// Download assets and start the game
 	assetManager.downloadAll(startGame)
 }

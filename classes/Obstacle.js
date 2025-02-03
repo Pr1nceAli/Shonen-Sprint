@@ -26,7 +26,7 @@ class Obstacle extends Entity {
 	 * Load the sprite sheets for the entity
 	 */
 	loadSpriteSheets() {
-		const spriteSheet = this.gameEngine.assetManager.getAsset('/assets/goku/obstacle.png')
+		const spriteSheet = this.gameEngine.assetManager.getAsset('assets/goku/obstacle.png')
 		this.sprite = new Animator(spriteSheet, 0, 0, this.width, this.height, 1, 1)
 	}
 
