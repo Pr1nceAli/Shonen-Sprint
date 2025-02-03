@@ -4,6 +4,7 @@ import GameEngine from './classes/GameEngine.js'
 import Goku from './classes/Goku.js'
 import Obstacle from './classes/Obstacle.js'
 import Buu from './classes/Buu.js'
+import {Background, BackgroundLayer} from './classes/Background.js'
 
 // Initialize function for dinamically scalling the canvas to fit the window
 const resizeCanvas = () => {
@@ -14,10 +15,29 @@ const resizeCanvas = () => {
 	canvas.style.transform = `scale(${ratio})`
 }
 
+const createBg = (game) => {
+	let layers = [
+		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_01.png'), .2),
+		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_02.png'), .5),
+		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_03.png'), .75),
+		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_04.png'), 1),
+		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_05.png'), 2),
+		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_06.png'), 3),
+	];
+
+	return new Background(game, layers);
+}
+
 // Initialize function to start the game
 const startGame = () => {
 	const gameEngine = new GameEngine(ctx, assetManager)
-	gameEngine.addEntity(new Goku(gameEngine, 100, 820, 3))
+
+	let player = new Goku(gameEngine, 100, 820, 3);
+	gameEngine.player = player;
+
+	gameEngine.addEntity(createBg(gameEngine), 100);
+
+	gameEngine.addEntity(player)
 	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 905, 0.15))
 	setTimeout(()=>{gameEngine.addEntity(new Buu(gameEngine,25, 850,0.30))},1000)
 
@@ -44,6 +64,14 @@ const initGame = () => {
 	assetManager.queueDownload('assets/goku/jumping.png')
 	assetManager.queueDownload('assets/goku/obstacle.png')
 	assetManager.queueDownload('assets/buu/buu.png')
+
+	assetManager.queueDownload('assets/bg/hills/layer_01.png');
+	assetManager.queueDownload('assets/bg/hills/layer_02.png');
+	assetManager.queueDownload('assets/bg/hills/layer_03.png');
+	assetManager.queueDownload('assets/bg/hills/layer_04.png');
+	assetManager.queueDownload('assets/bg/hills/layer_05.png');
+	assetManager.queueDownload('assets/bg/hills/layer_06.png');
+
 	// Download assets and start the game
 	assetManager.downloadAll(startGame)
 }

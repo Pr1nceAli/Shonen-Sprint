@@ -12,6 +12,7 @@ class Goku extends Entity {
 	constructor(gameEngine, x = 0, y = 0, scale = 1) {
 		super(gameEngine, x, y, scale, true)
 
+		this.screenX = x;
 		this.paddingX = 15
 		this.paddingY = 10
 		this.width = 37
@@ -60,7 +61,9 @@ class Goku extends Entity {
 		}
 
 		// Move the entity horizontally
-		this.x += this.velocity * this.gameEngine.clockTick
+		let xDelta = this.velocity * this.gameEngine.clockTick;
+        this.x += xDelta;
+        this.screenX += xDelta;
 
 		// Check if the entity is jumping
 		if (
@@ -74,14 +77,24 @@ class Goku extends Entity {
 		}
 
 		if (this.isJumping) {
-			this.y += this.jumpVelocity * this.gameEngine.clockTick
-			this.jumpVelocity += this.gravity * this.gameEngine.clockTick
+			this.y += this.jumpVelocity * this.gameEngine.clockTick;
+			this.jumpVelocity += this.gravity * this.gameEngine.clockTick;
 			
 			if (this.y >= 820) {
 				this.y = 820
 				this.isJumping = false
 			}
 		}
+
+		const maxRight = this.gameEngine.ctx.canvas.width - this.gameEngine.ctx.canvas.width * 0.4;
+        if (this.screenX > maxRight) {
+            this.screenX = maxRight;
+        }
+
+        const minLeft = this.gameEngine.ctx.canvas.width * 0.2;
+        if (this.screenX < minLeft) {
+            this.screenX = minLeft;
+        }
 	}
 
 	/**
@@ -89,11 +102,13 @@ class Goku extends Entity {
 	 */
 	draw(ctx) {
 		if (this.isJumping) {
-			this.jumping.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y, this.scale, this.paddingX, this.paddingY)
+			this.jumping.reverse = this.velocity < 0;
+			this.jumping.drawFrame(this.gameEngine.clockTick, ctx, this.screenX, this.y, this.scale, this.paddingX, this.paddingY)
 		} else if (this.velocity !== 0) {
-			this.running.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y, this.scale, this.paddingX, this.paddingY)
+			this.running.reverse = this.velocity < 0;
+			this.running.drawFrame(this.gameEngine.clockTick, ctx, this.screenX, this.y, this.scale, this.paddingX, this.paddingY)
 		} else {
-			this.idle.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y, this.scale, this.paddingX, this.paddingY)
+			this.idle.drawFrame(this.gameEngine.clockTick, ctx, this.screenX, this.y, this.scale, this.paddingX, this.paddingY)
 		}
 	}
 }

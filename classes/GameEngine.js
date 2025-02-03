@@ -149,11 +149,12 @@ class GameEngine {
 	 * Add an entity to the game
 	 * @param {Entity} entity - The entity to add
 	 */
-	addEntity(entity) {
+	addEntity(entity, priority = 0) {
 		if (!(entity instanceof Entity)) {
 			throw new Error('The entity must be an instance of Entity', entity)
 		}
 
+		entity.priority = priority;
 		this.entities.push(entity)
 		console.log(this.entities)
 	}
@@ -202,9 +203,14 @@ class GameEngine {
 		if (!this.running) return
 
 		this.clockTick = this.timer.tick()
+		this.sortEntities();
 		this.updateEntities()
 		this.draw()
 		this.checkCollisions()
+	}
+
+	sortEntities() {
+		this.entities.sort((a, b) => a.priority - b.priority);
 	}
 
 	/**

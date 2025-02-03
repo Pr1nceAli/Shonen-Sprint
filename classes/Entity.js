@@ -68,6 +68,8 @@ class Entity {
 		 * @type {boolean}
 		 */
 		this.removeFromWorld = false
+
+		this.priority = 0
 	}
 }
 
