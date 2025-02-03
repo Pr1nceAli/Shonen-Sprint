@@ -1,4 +1,4 @@
-import gameProperties from '../gameProperties.js'
+import gameProperties from './gameProperties.js'
 
 class Animator {
 	constructor(spritesheet, xStart, yStart, width, height, frameCount, frameDuration) {

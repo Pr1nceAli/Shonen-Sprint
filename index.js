@@ -1,4 +1,4 @@
-import gameProperties from '/gameProperties.js'
+import gameProperties from './classes/gameProperties.js'
 import AssetManager from './classes/AssetManager.js'
 import GameEngine from './classes/GameEngine.js'
 import Goku from './classes/Goku.js'

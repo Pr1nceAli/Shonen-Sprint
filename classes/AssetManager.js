@@ -1,4 +1,4 @@
-import gameProperties from '/gameProperties.js'
+import gameProperties from './gameProperties.js'
 
 /** Class representing an asset manager */
 class AssetManager {

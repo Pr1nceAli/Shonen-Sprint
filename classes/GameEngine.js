@@ -1,7 +1,7 @@
 import Entity from './Entity.js'
 import AssetManager from './AssetManager.js'
 import Timer from './Timer.js'
-import gameProperties from '../gameProperties.js'
+import gameProperties from './gameProperties.js'
 
 /**
  * @typedef {Object} PositionalCoordinates
