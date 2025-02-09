@@ -87,28 +87,36 @@ class Goku extends Entity {
 		}
 
 		const maxRight = this.gameEngine.ctx.canvas.width - this.gameEngine.ctx.canvas.width * 0.4;
-        if (this.screenX > maxRight) {
-            this.screenX = maxRight;
-        }
-
         const minLeft = this.gameEngine.ctx.canvas.width * 0.2;
-        if (this.screenX < minLeft) {
-            this.screenX = minLeft;
-        }
+
+		let [screenX, screenY] = this.gameEngine.camera.getScreenPosition(this);
+
+		if (screenX > maxRight) {
+			this.gameEngine.camera.x += screenX - maxRight;
+		}
+
+		if (screenX < minLeft) {
+			this.gameEngine.camera.x -= minLeft - screenX;
+		}
+
+		if (this.gameEngine.camera.x < 0)
+			this.gameEngine.camera.x = 0
 	}
 
 	/**
 	 * Draw the entity on canvas
 	 */
 	draw(ctx) {
+		let [screenX, screenY] = this.gameEngine.camera.getScreenPosition(this);
+
 		if (this.isJumping) {
 			this.jumping.reverse = this.velocity < 0;
-			this.jumping.drawFrame(this.gameEngine.clockTick, ctx, this.screenX, this.y, this.scale, this.paddingX, this.paddingY)
+			this.jumping.drawFrame(this.gameEngine.clockTick, ctx, screenX, screenY, this.scale, this.paddingX, this.paddingY)
 		} else if (this.velocity !== 0) {
 			this.running.reverse = this.velocity < 0;
-			this.running.drawFrame(this.gameEngine.clockTick, ctx, this.screenX, this.y, this.scale, this.paddingX, this.paddingY)
+			this.running.drawFrame(this.gameEngine.clockTick, ctx, screenX, screenY, this.scale, this.paddingX, this.paddingY)
 		} else {
-			this.idle.drawFrame(this.gameEngine.clockTick, ctx, this.screenX, this.y, this.scale, this.paddingX, this.paddingY)
+			this.idle.drawFrame(this.gameEngine.clockTick, ctx, screenX, screenY, this.scale, this.paddingX, this.paddingY)
 		}
 	}
 }

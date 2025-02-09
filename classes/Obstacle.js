@@ -36,16 +36,18 @@ class Obstacle extends Entity {
 	update() {
 		this.x -= this.velocity * this.gameEngine.clockTick
 
-		if (this.x < -(this.width * this.scale) - 100) {
-			this.x = gameProperties.width
-		}
+		let [sx, sy] = this.gameEngine.camera.getScreenPosition(this);
+
+		if(sx < 0) 
+			this.x += (this.gameEngine.camera.getWidth() + this.width);
 	}
 
 	/**
 	 * Draw the entity on canvas
 	 */
 	draw(ctx) {
-		this.sprite.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y, this.scale)
+		let [screenX, screenY] = this.gameEngine.camera.getScreenPosition(this);
+		this.sprite.drawFrame(this.gameEngine.clockTick, ctx, screenX, screenY, this.scale)
 	}
 }
 

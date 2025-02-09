@@ -29,7 +29,7 @@ class Background extends Entity {
     }
 
     update() {
-        this.layers.forEach(layer => layer.update(this.game.player.x, this.game.ctx))
+        this.layers.forEach(layer => layer.update(this.game.camera.x, this.game.ctx))
     }
 
     draw(ctx) {

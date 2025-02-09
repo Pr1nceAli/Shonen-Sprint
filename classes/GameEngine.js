@@ -2,6 +2,7 @@ import Entity from './Entity.js'
 import AssetManager from './AssetManager.js'
 import Timer from './Timer.js'
 import gameProperties from './gameProperties.js'
+import Camera from './Camera.js'
 
 /**
  * @typedef {Object} PositionalCoordinates
@@ -67,6 +68,8 @@ class GameEngine {
 		// Initialize the input events and the timer of the game
 		this.initInput()
 		this.timer = new Timer()
+
+		this.camera = new Camera(this, 0, 0);
 	}
 
 	/**

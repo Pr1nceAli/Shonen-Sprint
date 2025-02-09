@@ -35,15 +35,21 @@ class Buu extends Entity {
 	 * Update the entity's state
 	 */
 	update() {
-		this.x += this.speed * this.gameEngine.clockTick
-      if(this.x > this.gameEngine.ctx.canvas.width) this.x = 0
+		this.x += this.speed * this.gameEngine.clockTick;
+
+		let [sx, sy] = this.gameEngine.camera.getScreenPosition(this);
+
+    	if(sx > this.gameEngine.camera.getWidth()) 
+			this.x -= (this.gameEngine.camera.getWidth() + this.width * 4);
 	}
 
 	/**
 	 * Draw the entity on canvas
 	 */
 	draw(ctx) {
-			this.running.drawFrame(this.gameEngine.clockTick, ctx, this.x, this.y, this.scale*11, this.paddingX, this.paddingY)
+		let [screenX, screenY] = this.gameEngine.camera.getScreenPosition(this);
+
+		this.running.drawFrame(this.gameEngine.clockTick, ctx, screenX, screenY, this.scale*11, this.paddingX, this.paddingY)
 	}
 }
 
