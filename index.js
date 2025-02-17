@@ -4,6 +4,9 @@ import GameEngine from './classes/GameEngine.js'
 import Goku from './classes/Goku.js'
 import Obstacle from './classes/Obstacle.js'
 import Buu from './classes/Buu.js'
+import Shuriken from './classes/Shuriken.js'
+import BoxObstacle from './classes/BoxObstacle.js'
+import Ground from './classes/Ground.js'
 import {Background, BackgroundLayer} from './classes/Background.js'
 
 // Initialize function for dinamically scalling the canvas to fit the window
@@ -21,8 +24,8 @@ const createBg = (game) => {
 		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_02.png'), .5),
 		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_03.png'), .75),
 		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_04.png'), 1),
-		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_05.png'), 2),
-		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_06.png'), 3),
+		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_05.png'), 1),
+		new BackgroundLayer(game.assetManager.getAsset('assets/bg/hills/layer_06.png'), 1.2),
 	];
 
 	return new Background(game, layers);
@@ -37,8 +40,17 @@ const startGame = () => {
 
 	gameEngine.addEntity(createBg(gameEngine), 100);
 
+	gameEngine.addEntity(new Ground(gameEngine, -1000, 1000, 1))
 	gameEngine.addEntity(player)
 	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 905, 0.15))
+	gameEngine.addEntity(new Shuriken(gameEngine, 1700, 905, 0.075))
+	gameEngine.addEntity(new BoxObstacle(gameEngine, 700, 905, 5))
+	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90, 905, 5))
+	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90, 905 - 90, 5))
+	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90 * 2, 905, 5))
+	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90 * 2, 905 - 90, 5))
+	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90 * 2, 905 - 90 * 2, 5))
+
 	setTimeout(()=>{gameEngine.addEntity(new Buu(gameEngine,25, 850,0.30))},1000)
 
 	
@@ -64,6 +76,9 @@ const initGame = () => {
 	assetManager.queueDownload('assets/goku/jumping.png')
 	assetManager.queueDownload('assets/goku/obstacle.png')
 	assetManager.queueDownload('assets/buu/buu.png')
+	assetManager.queueDownload('assets/shuriken/shuriken.png')
+
+	assetManager.queueDownload('assets/boxes_barrels.png')
 
 	assetManager.queueDownload('assets/bg/hills/layer_01.png');
 	assetManager.queueDownload('assets/bg/hills/layer_02.png');

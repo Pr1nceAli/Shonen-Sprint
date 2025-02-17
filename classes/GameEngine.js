@@ -208,8 +208,9 @@ class GameEngine {
 		this.clockTick = this.timer.tick()
 		this.sortEntities();
 		this.updateEntities()
-		this.draw()
 		this.checkCollisions()
+
+		this.draw()
 	}
 
 	sortEntities() {
@@ -220,26 +221,35 @@ class GameEngine {
 	 * Start the game
 	 */
 	start() {
-        this.running = true
-        const gameLoop = () => {
-            this.renderLoop()
-            requestAnimFrame(gameLoop, this.ctx.canvas)
-        }
-        gameLoop()
-    }
+		this.running = true
+		const gameLoop = () => {
+			this.renderLoop()
+			requestAnimFrame(gameLoop, this.ctx.canvas)
+		}
+		gameLoop()
+	}
 
 	/**
 	 * Check if the player is colliding with any obstacle
 	 */
 	checkCollisions() {
+		let push = {
+			x: 0, y: 0
+		};
+
 		for (const entity of this.entities) {
 			if (entity instanceof Entity && entity.isPlayer) {
+				entity.isGrounded = false
+
 				for (const otherEntity of this.entities) {
 					if (otherEntity instanceof Entity && entity !== otherEntity) {
-						if (this.checkCollision(entity, otherEntity)) {
-							this.running = false
-							alert('Game over!')
-							window.location.reload()
+						if (this.checkCollision(entity, otherEntity, push)) {
+							if (push.y < 0){
+								entity.isJumping = false
+								entity.isGrounded = true
+							}
+							
+							entity.onCollision(otherEntity);
 						}
 					}
 				}
@@ -253,24 +263,49 @@ class GameEngine {
 	 * @param {Entity} collidableEntity 
 	 * @returns 
 	 */
-	checkCollision(playerEntity, collidableEntity) {
-		let colliding = false
+	checkCollision(playerEntity, collidableEntity, push) {
+		push.x = 0;
+		push.y = 0;
 
-		let playerX = playerEntity.x + playerEntity.paddingX
-		let playerY = playerEntity.y + playerEntity.paddingY
-		let collidableX = collidableEntity.x + collidableEntity.paddingX
-		let collidableY = collidableEntity.y + collidableEntity.paddingY
+		const pLeft = playerEntity.x + playerEntity.paddingX;
+		const pTop = playerEntity.y + playerEntity.paddingY;
+		const pWidth = playerEntity.width * playerEntity.scale - playerEntity.paddingX * 2;
+		const pHeight = playerEntity.height * playerEntity.scale - playerEntity.paddingY * 2;
+		const pRight = pLeft + pWidth;
+		const pBottom = pTop + pHeight;
 
-		if (
-			playerX + playerEntity.width * playerEntity.scale - playerEntity.paddingX * 2 >= collidableX &&
-			playerX <= collidableX + collidableEntity.width * collidableEntity.scale - collidableEntity.paddingX * 2 &&
-			playerY + playerEntity.height * playerEntity.scale - playerEntity.paddingY * 2 >= collidableY &&
-			playerY <= collidableY + collidableEntity.height * collidableEntity.scale - collidableEntity.paddingY * 2
-		) colliding = true;
-		
+		const cLeft = collidableEntity.x + collidableEntity.paddingX;
+		const cTop = collidableEntity.y + collidableEntity.paddingY;
+		const cWidth = collidableEntity.width * collidableEntity.scale - collidableEntity.paddingX * 2;
+		const cHeight = collidableEntity.height * collidableEntity.scale - collidableEntity.paddingY * 2;
+		const cRight = cLeft + cWidth;
+		const cBottom = cTop + cHeight;
 
-		console.log(colliding)
-		return colliding
+		if (pRight > cLeft && pLeft < cRight && pBottom > cTop && pTop < cBottom) {
+			const overlapX = Math.min(pRight - cLeft, cRight - pLeft);
+			const overlapY = Math.min(pBottom - cTop, cBottom - pTop);
+
+			if (overlapX < overlapY) {
+				if (pRight - cLeft < cRight - pLeft) {
+					push.x = cLeft - pWidth - playerEntity.paddingX - playerEntity.x;
+					playerEntity.x += push.x;
+				} else {
+					push.x = cRight - playerEntity.paddingX - playerEntity.x;
+					playerEntity.x += push.x;
+				}
+			} else {
+				if (pBottom - cTop < cBottom - pTop) {
+					push.y = cTop - pHeight - playerEntity.paddingY - playerEntity.y;
+					playerEntity.y += push.y;
+				} else {
+					push.y = cBottom - playerEntity.paddingY - playerEntity.y;
+					playerEntity.y += push.y;
+				}
+			}
+			return true;
+		}
+
+		return false;
 	}
 }
 

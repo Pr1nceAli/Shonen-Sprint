@@ -1,5 +1,8 @@
 import Entity from './Entity.js'
 import Animator from './Animator.js'
+import Buu from './Buu.js';
+import Obstacle from './Obstacle.js';
+import Shuriken from './Shuriken.js';
 
 class Goku extends Entity {
 	/**
@@ -23,6 +26,7 @@ class Goku extends Entity {
 		this.jumpVelocity = 0
 		this.gravity = 1500
 		this.initialJumpVelocity = -800
+		this.isGrounded = true
 
 		this.loadSpriteSheets()
 	}
@@ -76,14 +80,16 @@ class Goku extends Entity {
 			this.jumpVelocity = this.initialJumpVelocity
 		}
 
-		if (this.isJumping) {
+		
+		this.jumpVelocity += this.gravity * this.gameEngine.clockTick;
+		
+
+		if (!this.isGrounded) {
 			this.y += this.jumpVelocity * this.gameEngine.clockTick;
-			this.jumpVelocity += this.gravity * this.gameEngine.clockTick;
-			
-			if (this.y >= 820) {
-				this.y = 820
-				this.isJumping = false
-			}
+		}
+		else {
+			this.isJumping = false;
+			this.jumpVelocity = 0;
 		}
 
 		const maxRight = this.gameEngine.ctx.canvas.width - this.gameEngine.ctx.canvas.width * 0.4;
@@ -118,6 +124,17 @@ class Goku extends Entity {
 		} else {
 			this.idle.drawFrame(this.gameEngine.clockTick, ctx, screenX, screenY, this.scale, this.paddingX, this.paddingY)
 		}
+	}
+
+	onCollision(otherEntity) {
+		if (otherEntity instanceof Buu || otherEntity instanceof Obstacle || otherEntity instanceof Shuriken) {
+			this.gameEngine.running = false;
+
+			alert('Game over!')
+			window.location.reload()
+		}
+
+		
 	}
 }
 
