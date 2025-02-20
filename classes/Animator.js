@@ -40,11 +40,13 @@ class Animator {
 			ctx.fill()
 		}
 
-		ctx.drawImage(this.spritesheet,
-			this.xStart + this.width*frame, this.yStart,
+		ctx.drawImage(
+			this.spritesheet,
+			this.xStart + this.width * frame, this.yStart,
 			this.width, this.height,
 			x, y,
-			this.width * zoom, this.height * zoom)
+			this.width * zoom, this.height * zoom
+		)
 
 		if (this.reverse) {
 			ctx.restore()

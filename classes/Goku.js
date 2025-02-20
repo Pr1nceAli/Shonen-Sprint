@@ -36,8 +36,8 @@ class Goku extends Entity {
 	 * Load the sprite sheets for the entity
 	 */
 	loadSpriteSheets() {
-		const spriteSheet = this.gameEngine.assetManager.getAsset('assets/goku/sprites.png')
-		const jumpingSpriteSheet = this.gameEngine.assetManager.getAsset('assets/goku/jumping.png')
+		const spriteSheet = this.gameEngine.assetManager.getAsset('/assets/goku/sprites.png')
+		const jumpingSpriteSheet = this.gameEngine.assetManager.getAsset('/assets/goku/jumping.png')
 
 		// Create the animations
 		this.idle = new Animator(spriteSheet, 622, 124, 37, 60, 2, 0.45)

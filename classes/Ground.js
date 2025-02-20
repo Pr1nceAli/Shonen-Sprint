@@ -1,6 +1,4 @@
 import Entity from './Entity.js'
-import Animator from './Animator.js'
-import gameProperties from './gameProperties.js'
 
 class Ground extends Entity {
 	/**

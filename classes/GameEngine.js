@@ -69,7 +69,7 @@ class GameEngine {
 		this.initInput()
 		this.timer = new Timer()
 
-		this.camera = new Camera(this, 0, 0);
+		this.camera = new Camera(this, 0, 0)
 	}
 
 	/**
@@ -157,7 +157,7 @@ class GameEngine {
 			throw new Error('The entity must be an instance of Entity', entity)
 		}
 
-		entity.priority = priority;
+		entity.priority = priority
 		this.entities.push(entity)
 		console.log(this.entities)
 	}
@@ -202,11 +202,23 @@ class GameEngine {
 	/**
 	 * Run the render loop of the game
 	 */
+	renderInit() {
+		this.clockTick = this.timer.tick()
+		this.sortEntities()
+		this.updateEntities()
+		this.checkCollisions()
+
+		this.draw()
+	}
+
+	/**
+	 * Run the render loop of the game
+	 */
 	renderLoop() {
 		if (!this.running) return
 
 		this.clockTick = this.timer.tick()
-		this.sortEntities();
+		this.sortEntities()
 		this.updateEntities()
 		this.checkCollisions()
 
@@ -214,7 +226,7 @@ class GameEngine {
 	}
 
 	sortEntities() {
-		this.entities.sort((a, b) => a.priority - b.priority);
+		this.entities.sort((a, b) => a.priority - b.priority)
 	}
 
 	/**
@@ -222,6 +234,7 @@ class GameEngine {
 	 */
 	start() {
 		this.running = true
+
 		const gameLoop = () => {
 			this.renderLoop()
 			requestAnimFrame(gameLoop, this.ctx.canvas)
@@ -235,7 +248,7 @@ class GameEngine {
 	checkCollisions() {
 		let push = {
 			x: 0, y: 0
-		};
+		}
 
 		for (const entity of this.entities) {
 			if (entity instanceof Entity && entity.isPlayer) {
@@ -249,7 +262,7 @@ class GameEngine {
 								entity.isGrounded = true
 							}
 							
-							entity.onCollision(otherEntity);
+							entity.onCollision(otherEntity)
 						}
 					}
 				}
@@ -264,48 +277,48 @@ class GameEngine {
 	 * @returns 
 	 */
 	checkCollision(playerEntity, collidableEntity, push) {
-		push.x = 0;
-		push.y = 0;
+		push.x = 0
+		push.y = 0
 
-		const pLeft = playerEntity.x + playerEntity.paddingX;
-		const pTop = playerEntity.y + playerEntity.paddingY;
-		const pWidth = playerEntity.width * playerEntity.scale - playerEntity.paddingX * 2;
-		const pHeight = playerEntity.height * playerEntity.scale - playerEntity.paddingY * 2;
-		const pRight = pLeft + pWidth;
-		const pBottom = pTop + pHeight;
+		const pLeft = playerEntity.x + playerEntity.paddingX
+		const pTop = playerEntity.y + playerEntity.paddingY
+		const pWidth = playerEntity.width * playerEntity.scale - playerEntity.paddingX * 2
+		const pHeight = playerEntity.height * playerEntity.scale - playerEntity.paddingY * 2
+		const pRight = pLeft + pWidth
+		const pBottom = pTop + pHeight
 
-		const cLeft = collidableEntity.x + collidableEntity.paddingX;
-		const cTop = collidableEntity.y + collidableEntity.paddingY;
-		const cWidth = collidableEntity.width * collidableEntity.scale - collidableEntity.paddingX * 2;
-		const cHeight = collidableEntity.height * collidableEntity.scale - collidableEntity.paddingY * 2;
-		const cRight = cLeft + cWidth;
-		const cBottom = cTop + cHeight;
+		const cLeft = collidableEntity.x + collidableEntity.paddingX
+		const cTop = collidableEntity.y + collidableEntity.paddingY
+		const cWidth = collidableEntity.width * collidableEntity.scale - collidableEntity.paddingX * 2
+		const cHeight = collidableEntity.height * collidableEntity.scale - collidableEntity.paddingY * 2
+		const cRight = cLeft + cWidth
+		const cBottom = cTop + cHeight
 
 		if (pRight > cLeft && pLeft < cRight && pBottom > cTop && pTop < cBottom) {
-			const overlapX = Math.min(pRight - cLeft, cRight - pLeft);
-			const overlapY = Math.min(pBottom - cTop, cBottom - pTop);
+			const overlapX = Math.min(pRight - cLeft, cRight - pLeft)
+			const overlapY = Math.min(pBottom - cTop, cBottom - pTop)
 
 			if (overlapX < overlapY) {
 				if (pRight - cLeft < cRight - pLeft) {
-					push.x = cLeft - pWidth - playerEntity.paddingX - playerEntity.x;
-					playerEntity.x += push.x;
+					push.x = cLeft - pWidth - playerEntity.paddingX - playerEntity.x
+					playerEntity.x += push.x
 				} else {
-					push.x = cRight - playerEntity.paddingX - playerEntity.x;
-					playerEntity.x += push.x;
+					push.x = cRight - playerEntity.paddingX - playerEntity.x
+					playerEntity.x += push.x
 				}
 			} else {
 				if (pBottom - cTop < cBottom - pTop) {
-					push.y = cTop - pHeight - playerEntity.paddingY - playerEntity.y;
-					playerEntity.y += push.y;
+					push.y = cTop - pHeight - playerEntity.paddingY - playerEntity.y
+					playerEntity.y += push.y
 				} else {
-					push.y = cBottom - playerEntity.paddingY - playerEntity.y;
-					playerEntity.y += push.y;
+					push.y = cBottom - playerEntity.paddingY - playerEntity.y
+					playerEntity.y += push.y
 				}
 			}
-			return true;
+			return true
 		}
 
-		return false;
+		return false
 	}
 }
 

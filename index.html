@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
     <head>
         <meta charset='utf-8'>
-        <title>Shonen Sprint</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Shonen Sprint - Main Menu</title>
         <link rel='stylesheet' href='index.css'>
     </head>
     <body>
-        <span>
-            <canvas id='game' tabindex='0' autofocus></canvas>
-        </span>
+        <div class='menu'>
+            <button onclick='startGame()'>Play</button>
+            <button onclick='showAbout()'>About</button>
+        </div>
 
-        <script src='index.js' type='module'></script>
-        <script type='text/javascript' src='./util.js'></script>
+        <script>
+            function startGame() {
+                window.location.href = 'level1/index.html'
+            }
+
+            function showAbout() {
+                alert('Shonen Sprint - A fast-paced action game!')
+            }
+        </script>
     </body>
 </html>
