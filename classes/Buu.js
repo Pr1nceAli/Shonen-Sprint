@@ -16,7 +16,7 @@ class Buu extends Entity {
 		this.paddingY = 10
 		this.width = 34
 		this.height = 60
-		this.speed = 320
+		this.speed = 520
 		this.loadSpriteSheets()
 	}
 
@@ -31,11 +31,22 @@ class Buu extends Entity {
 		
 	}
 
+	calculateSpeed() {
+		const keepDistance = 500;
+		let distance = Math.abs(this.x - this.target.x);
+		if (distance > keepDistance || this.x > this.target.x) {
+			let additionalSpeed = distance / keepDistance * 300;
+			return this.speed + additionalSpeed;
+		}
+
+		return this.speed;
+	}
+
 	/**
 	 * Update the entity's state
 	 */
 	update() {
-		this.x += this.speed * this.gameEngine.clockTick;
+		this.x += this.calculateSpeed() * this.gameEngine.clockTick;
 
 		let [sx, sy] = this.gameEngine.camera.getScreenPosition(this);
 

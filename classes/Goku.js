@@ -44,6 +44,17 @@ class Goku extends Entity {
 		this.jumping = new Animator(jumpingSpriteSheet, 2, 3, 36, 64, 4, 0.25)
 	}
 
+	calculateSpeed() {
+		const keepDistance = 500;
+		let distance = Math.abs(this.x - this.pursuer.x);
+		if (distance < keepDistance) {
+			let additionalSpeed = distance / keepDistance * 200;
+			return this.speed + additionalSpeed;
+		}
+
+		return this.speed;
+	}
+
 	/**
 	 * Update the entity's state
 	 */
@@ -51,17 +62,19 @@ class Goku extends Entity {
 		// Reset the velocity
 		this.velocity = 0
 
+		let speed = this.calculateSpeed();
+
 		// Check if the entity is moving left or right
 		if (
 			this.gameEngine.keys['d'] ||
 			this.gameEngine.keys['ArrowRight']
 		) {
-			this.velocity = this.speed
+			this.velocity = speed
 		} else if (
 			this.gameEngine.keys['a'] ||
 			this.gameEngine.keys['ArrowLeft']
 		) {
-			this.velocity = -this.speed
+			this.velocity = -speed
 		}
 
 		// Move the entity horizontally

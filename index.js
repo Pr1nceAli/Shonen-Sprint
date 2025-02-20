@@ -36,6 +36,11 @@ const startGame = () => {
 	const gameEngine = new GameEngine(ctx, assetManager)
 
 	let player = new Goku(gameEngine, 100, 820, 3);
+	let pursuer = new Buu(gameEngine, 25, 850, 0.3);
+
+	player.pursuer = pursuer;
+	pursuer.target = player;
+
 	gameEngine.player = player;
 
 	gameEngine.addEntity(createBg(gameEngine), 100);
@@ -51,7 +56,7 @@ const startGame = () => {
 	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90 * 2, 905 - 90, 5))
 	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90 * 2, 905 - 90 * 2, 5))
 
-	setTimeout(()=>{gameEngine.addEntity(new Buu(gameEngine,25, 850,0.30))},1000)
+	setTimeout(()=>{gameEngine.addEntity(pursuer)},1000)
 
 	
 	gameEngine.start()
