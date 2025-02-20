@@ -1,13 +1,12 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('./assets/shonen\ sprint.png'); 
+    background-image: url('./Assets/mainmenubg.jpg'); 
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat; 
     background-attachment: fixed; 
-    font-family: Arial, sans-serif;
-
+    font-family: "Poppins", Arial, sans-serif;
 }
 
 .menu {
@@ -18,18 +17,86 @@ body {
     height: 100vh;
 }
 
+/* Button Style */
 .menu button {
-    padding: 15px 30px;
+    padding: 15px 40px;
     margin: 10px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    background-color: #ff5733;
+    font-size: 20px;
+    font-weight: bold;
+    border: 2px solid #ffcc00; 
+    border-radius: 15px;
+    background: linear-gradient(45deg, #ff5733, #ffcc00); 
     color: white;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(255, 87, 51, 0.8), 0 0 20px rgba(255, 204, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+/*  Hover  */
+.menu button:hover {
+    background: linear-gradient(45deg, #ffcc00, #ff5733);
+    box-shadow: 0 0 15px rgba(255, 255, 0, 1), 0 0 30px rgba(255, 87, 51, 0.9);
+    transform: scale(1.1);
+}
+
+/*  Glow  */
+.menu button::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.menu button:hover::after {
+    transform: scaleX(1);
+    opacity: 0;
+}
+
+/*  Flicker  */
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
 }
 
 .menu button:hover {
-    background-color: #c70039;
+    animation: flicker 0.2s infinite alternate;
 }
+
+.particles {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+    from {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+
