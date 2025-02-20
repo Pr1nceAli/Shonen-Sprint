@@ -25,7 +25,7 @@ class BoxObstacle extends Entity {
 	 * Load the sprite sheets for the entity
 	 */
 	loadSpriteSheets() {
-		const spriteSheet = this.gameEngine.assetManager.getAsset('/assets/boxes_barrels.png')
+		const spriteSheet = this.gameEngine.assetManager.getAsset('../assets/boxes_barrels.png')
 		this.sprite = new Animator(spriteSheet, 88, 154, this.width, this.height, 1, 1)
 	}
 

@@ -27,7 +27,7 @@ class Shuriken extends Entity {
 	 * Load the sprite sheets for the entity
 	 */
 	loadSpriteSheets() {
-		const spriteSheet = this.gameEngine.assetManager.getAsset('/assets/shuriken/shuriken.png')
+		const spriteSheet = this.gameEngine.assetManager.getAsset('../assets/shuriken/shuriken.png')
 		this.sprite = new Animator(spriteSheet, 0, 0, this.width, this.height, 1, 1)
 	}
 

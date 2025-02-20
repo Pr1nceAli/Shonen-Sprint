@@ -21,12 +21,12 @@ const resizeCanvas = () => {
 
 const createBg = (game) => {
 	let layers = [
-		new BackgroundLayer(game.assetManager.getAsset('/assets/bg/hills/layer_01.png'), .2),
-		new BackgroundLayer(game.assetManager.getAsset('/assets/bg/hills/layer_02.png'), .5),
-		new BackgroundLayer(game.assetManager.getAsset('/assets/bg/hills/layer_03.png'), .75),
-		new BackgroundLayer(game.assetManager.getAsset('/assets/bg/hills/layer_04.png'), 1),
-		new BackgroundLayer(game.assetManager.getAsset('/assets/bg/hills/layer_05.png'), 1),
-		new BackgroundLayer(game.assetManager.getAsset('/assets/bg/hills/layer_06.png'), 1.2),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_01.png'), .2),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_02.png'), .5),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_03.png'), .75),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_04.png'), 1),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_05.png'), 1),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_06.png'), 1.2),
 	]
 
 	return new Background(game, layers)
@@ -86,21 +86,21 @@ const initGame = () => {
 
 	// Load assets
 	
-	assetManager.queueDownload('/assets/goku/sprites.png')
-	assetManager.queueDownload('/assets/goku/running.png')
-	assetManager.queueDownload('/assets/goku/jumping.png')
-	assetManager.queueDownload('/assets/goku/obstacle.png')
-	assetManager.queueDownload('/assets/buu/buu.png')
-	assetManager.queueDownload('/assets/shuriken/shuriken.png')
+	assetManager.queueDownload('../assets/goku/sprites.png')
+	assetManager.queueDownload('../assets/goku/running.png')
+	assetManager.queueDownload('../assets/goku/jumping.png')
+	assetManager.queueDownload('../assets/goku/obstacle.png')
+	assetManager.queueDownload('../assets/buu/buu.png')
+	assetManager.queueDownload('../assets/shuriken/shuriken.png')
 
-	assetManager.queueDownload('/assets/boxes_barrels.png')
+	assetManager.queueDownload('../assets/boxes_barrels.png')
 
-	assetManager.queueDownload('/assets/bg/hills/layer_01.png')
-	assetManager.queueDownload('/assets/bg/hills/layer_02.png')
-	assetManager.queueDownload('/assets/bg/hills/layer_03.png')
-	assetManager.queueDownload('/assets/bg/hills/layer_04.png')
-	assetManager.queueDownload('/assets/bg/hills/layer_05.png')
-	assetManager.queueDownload('/assets/bg/hills/layer_06.png')
+	assetManager.queueDownload('../assets/bg/hills/layer_01.png')
+	assetManager.queueDownload('../assets/bg/hills/layer_02.png')
+	assetManager.queueDownload('../assets/bg/hills/layer_03.png')
+	assetManager.queueDownload('../assets/bg/hills/layer_04.png')
+	assetManager.queueDownload('../assets/bg/hills/layer_05.png')
+	assetManager.queueDownload('../assets/bg/hills/layer_06.png')
 
 	// Download assets and start the game
 	assetManager.downloadAll(loadGame)

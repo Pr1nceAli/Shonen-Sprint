@@ -24,7 +24,7 @@ class Buu extends Entity {
 	 * Load the sprite sheets for the entity
 	 */
 	loadSpriteSheets() {
-		const spriteSheet = this.gameEngine.assetManager.getAsset('/assets/buu/buu.png')
+		const spriteSheet = this.gameEngine.assetManager.getAsset('../assets/buu/buu.png')
 		// Create the animations
 
 		this.running = new Animator(spriteSheet, 0, 0, 68, 60, 8, 0.10)
