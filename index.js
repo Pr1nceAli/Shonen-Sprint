@@ -8,6 +8,7 @@ import Shuriken from './classes/Shuriken.js'
 import BoxObstacle from './classes/BoxObstacle.js'
 import Ground from './classes/Ground.js'
 import {Background, BackgroundLayer} from './classes/Background.js'
+import HUD from './classes/HUD.js'
 
 // Initialize function for dinamically scalling the canvas to fit the window
 const resizeCanvas = () => {
@@ -31,12 +32,54 @@ const createBg = (game) => {
 	return new Background(game, layers);
 }
 
+const spawnObstacle = (gameEngine) => {
+    const minSpawnTime = 2000; // Minimum time between spawns (1 sec)
+    const maxSpawnTime = 3000; // Maximum time between spawns (3 sec)
+
+    const boxWidth = 90; // Width of a single box
+    const groundY = 905; // Y position for the ground box
+    const stairHeight = 3; // Maximum vertical stack height
+
+    const spawn = () => {
+        const randomX = gameEngine.player.x + 800 + Math.random() * 300;
+        const stackHeight = Math.floor(Math.random() * stairHeight) + 1; 
+
+      
+        const isStairShape = Math.random() > 0.25;
+
+        if (isStairShape) {
+            for (let i = 0; i < stairHeight; i++) {
+				for (let j = 0; j <= i; j++) { 
+					let boxX = randomX + i * boxWidth; // Shift right for each step
+					let boxY = groundY - j * boxWidth; // Stack boxes under each step
+					let obstacle = new BoxObstacle(gameEngine, boxX, boxY, 5);
+					gameEngine.addEntity(obstacle);
+				}
+			}
+        } else {
+            // Normal stacked boxes
+            for (let i = 0; i < stackHeight; i++) {
+                let boxY = groundY - i * boxWidth; // Stack boxes upwards
+                let obstacle = new BoxObstacle(gameEngine, randomX, boxY, 5);
+                gameEngine.addEntity(obstacle);
+            }
+        }
+
+        const nextSpawnTime = Math.random() * (maxSpawnTime - minSpawnTime) + minSpawnTime;
+        setTimeout(spawn, nextSpawnTime);
+    };
+
+    spawn(); // Start spawning obstacles
+};
+
+
+
 // Initialize function to start the game
 const startGame = () => {
 	const gameEngine = new GameEngine(ctx, assetManager)
 
 	let player = new Goku(gameEngine, 100, 820, 3);
-	let pursuer = new Buu(gameEngine, 25, 850, 0.3);
+	let pursuer = new Buu(gameEngine, 25, 875, 0.3);
 
 	player.pursuer = pursuer;
 	pursuer.target = player;
@@ -47,19 +90,14 @@ const startGame = () => {
 
 	gameEngine.addEntity(new Ground(gameEngine, -1000, 1000, 1))
 	gameEngine.addEntity(player)
-	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 905, 0.15))
+	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 500, 0.15))
 	gameEngine.addEntity(new Shuriken(gameEngine, 1700, 905, 0.075))
-	gameEngine.addEntity(new BoxObstacle(gameEngine, 700, 905, 5))
-	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90, 905, 5))
-	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90, 905 - 90, 5))
-	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90 * 2, 905, 5))
-	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90 * 2, 905 - 90, 5))
-	gameEngine.addEntity(new BoxObstacle(gameEngine, 700 + 90 * 2, 905 - 90 * 2, 5))
-
+	gameEngine.addEntity(new HUD(gameEngine));
 	setTimeout(()=>{gameEngine.addEntity(pursuer)},1000)
 
 	
 	gameEngine.start()
+	spawnObstacle(gameEngine);
 }
 
 const initGame = () => {

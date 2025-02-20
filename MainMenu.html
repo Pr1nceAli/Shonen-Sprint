@@ -35,6 +35,29 @@
             playMusic();
             alert("Shonen Sprint - A fast-paced action game!");
         }
+        document.addEventListener("DOMContentLoaded", () => {
+        const particleContainer = document.createElement("div");
+        particleContainer.classList.add("particles");
+        document.body.appendChild(particleContainer);
+
+        function createParticle() {
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            let size = Math.random() * 8 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            particleContainer.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        setInterval(createParticle, 300);
+        });
+
     </script>
 </body>
 </html>

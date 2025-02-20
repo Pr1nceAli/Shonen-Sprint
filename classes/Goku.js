@@ -27,6 +27,7 @@ class Goku extends Entity {
 		this.gravity = 1500
 		this.initialJumpVelocity = -800
 		this.isGrounded = true
+		this.distanceTraveled = 0;
 
 		this.loadSpriteSheets()
 	}
@@ -120,6 +121,12 @@ class Goku extends Entity {
 
 		if (this.gameEngine.camera.x < 0)
 			this.gameEngine.camera.x = 0
+
+		//Increasing the distance traveled when only going forward
+		if(xDelta > 0) {
+			this.distanceTraveled += xDelta;
+		}
+		
 	}
 
 	/**
