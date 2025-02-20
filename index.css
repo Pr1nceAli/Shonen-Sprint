@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 1)
+}
+
+span {
+    height: 0;
+    width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    /* background: url('assets/BG-lvl.1.jpg'); */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transform-origin: center;
+}
+
+canvas:focus {
+    outline: 0;
+}
