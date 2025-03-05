@@ -28,6 +28,7 @@ class Goku extends Entity {
 		this.initialJumpVelocity = -800
 		this.isGrounded = true
 		this.distanceTraveled = 0;
+		this.farthestX = x;
 
 		this.loadSpriteSheets()
 	}
@@ -64,6 +65,8 @@ class Goku extends Entity {
 		this.velocity = 0
 
 		let speed = this.calculateSpeed();
+		let prevX = this.x;
+		let farthestX = 0;
 
 		// Check if the entity is moving left or right
 		if (
@@ -122,10 +125,13 @@ class Goku extends Entity {
 		if (this.gameEngine.camera.x < 0)
 			this.gameEngine.camera.x = 0
 
-		//Increasing the distance traveled when only going forward
-		if(xDelta > 0) {
-			this.distanceTraveled += xDelta;
+		if (this.x > this.farthestX) {
+			this.distanceTraveled += this.x - this.farthestX; // Only count new distance forward
+			this.farthestX = this.x; 
 		}
+
+		//Increasing the distance traveled when only going forward
+		
 		
 	}
 

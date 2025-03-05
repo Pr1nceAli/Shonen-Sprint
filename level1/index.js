@@ -33,44 +33,53 @@ const createBg = (game) => {
 }
 
 const spawnObstacle = (gameEngine) => {
-    const minSpawnTime = 2000 // Minimum time between spawns (1 sec)
-    const maxSpawnTime = 3000 // Maximum time between spawns (3 sec)
+    const minSpawnTime = 2000;
+    const maxSpawnTime = 3000;
 
-    const boxWidth = 90 // Width of a single box
-    const groundY = 905 // Y position for the ground box
-    const stairHeight = 3 // Maximum vertical stack height
+    const boxWidth = 90;
+    const groundY = 905;
+    const stairHeight = 3;
+    const spawnRange = 300; // Max extra space in front of player
 
     const spawn = () => {
-        const randomX = gameEngine.player.x + 800 + Math.random() * 300
-        const stackHeight = Math.floor(Math.random() * stairHeight) + 1 
+        let randomX;
+        let isOverlapping;
+        
+        do {
+            randomX = gameEngine.player.x + 800 + Math.random() * spawnRange;
+            isOverlapping = gameEngine.entities.some(entity => 
+                entity instanceof BoxObstacle && 
+                Math.abs(entity.x - randomX) < boxWidth // Check if too close
+            );
+        } while (isOverlapping); // Keep generating until we find a free space
 
-      
-        const isStairShape = Math.random() > 0.25
+        const stackHeight = Math.floor(Math.random() * stairHeight) + 1;
+        const isStairShape = Math.random() > 0.25;
 
         if (isStairShape) {
             for (let i = 0; i < stairHeight; i++) {
-				for (let j = 0; j <= i; j++) { 
-					let boxX = randomX + i * boxWidth // Shift right for each step
-					let boxY = groundY - j * boxWidth // Stack boxes under each step
-					let obstacle = new BoxObstacle(gameEngine, boxX, boxY, 5)
-					gameEngine.addEntity(obstacle)
-				}
-			}
+                for (let j = 0; j <= i; j++) {
+                    let boxX = randomX + i * boxWidth;
+                    let boxY = groundY - j * boxWidth;
+                    let obstacle = new BoxObstacle(gameEngine, boxX, boxY, 5);
+                    gameEngine.addEntity(obstacle);
+                }
+            }
         } else {
-            // Normal stacked boxes
             for (let i = 0; i < stackHeight; i++) {
-                let boxY = groundY - i * boxWidth // Stack boxes upwards
-                let obstacle = new BoxObstacle(gameEngine, randomX, boxY, 5)
-                gameEngine.addEntity(obstacle)
+                let boxY = groundY - i * boxWidth;
+                let obstacle = new BoxObstacle(gameEngine, randomX, boxY, 5);
+                gameEngine.addEntity(obstacle);
             }
         }
 
-        const nextSpawnTime = Math.random() * (maxSpawnTime - minSpawnTime) + minSpawnTime
-        setTimeout(spawn, nextSpawnTime)
-    }
+        const nextSpawnTime = Math.random() * (maxSpawnTime - minSpawnTime) + minSpawnTime;
+        setTimeout(spawn, nextSpawnTime);
+    };
 
-    spawn() // Start spawning obstacles
+    spawn();
 }
+
 
 const initGame = () => {
 	// Set the size of the canvas
