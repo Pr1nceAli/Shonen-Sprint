@@ -1,7 +1,7 @@
 import gameProperties from '../classes/gameProperties.js'
 import AssetManager from '../classes/AssetManager.js'
 import GameEngine from '../classes/GameEngine.js'
-import Goku from '../classes/Goku.js'
+import Naruto from '../classes/Naruto.js'
 import Obstacle from '../classes/Obstacle.js'
 import Buu from '../classes/Buu.js'
 import Shuriken from '../classes/Shuriken.js'
@@ -9,6 +9,13 @@ import BoxObstacle from '../classes/BoxObstacle.js'
 import Ground from '../classes/Ground.js'
 import {Background, BackgroundLayer} from '../classes/Background.js'
 import HUD from '../classes/HUD.js'
+import CarObstacle from '../classes/CarObstacle.js'
+import Bin1Obstacle from '../classes/Bin1Obstacle.js'
+import Bin2Obstacle from '../classes/Bin2Obstacle.js'
+import Bin3Obstacle from '../classes/Bin3Obstacle.js'
+import Lvl3Chaser from '../classes/Lvl3Chaser.js'
+import TruckObstacle from '../classes/TruckObstacle.js'
+import Portal from '../classes/Portal.js'
 
 // Initialize function for dinamically scalling the canvas to fit the window
 const resizeCanvas = () => {
@@ -21,12 +28,9 @@ const resizeCanvas = () => {
 
 const createBg = (game) => {
 	let layers = [
-		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_01.png'), .2),
-		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_02.png'), .5),
-		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_03.png'), .75),
-		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_04.png'), 1),
-		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_05.png'), 1),
-		new BackgroundLayer(game.assetManager.getAsset('../assets/bg/hills/layer_06.png'), 1.2),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/lvl3/bg/1.png'), .1),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/lvl3/bg/2.png'), .5),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/lvl3/bg/3.png'), 1)
 	]
 
 	return new Background(game, layers)
@@ -80,6 +84,26 @@ const spawnObstacle = (gameEngine) => {
     spawn();
 }
 
+const createObstacles = (gameEngine) => {
+	const bin1 = (x, y = 850) => gameEngine.addEntity(new Bin1Obstacle(gameEngine, x, y, .75));
+	const bin2 = (x, y = 850) => gameEngine.addEntity(new Bin2Obstacle(gameEngine, x, y, 1));
+	const bin3 = (x, y = 850) => gameEngine.addEntity(new Bin3Obstacle(gameEngine, x, y, .75));
+	const car = (x, y = 850) => gameEngine.addEntity(new CarObstacle(gameEngine, x, y, 1));
+	const truck = (x, y = 750) => gameEngine.addEntity(new TruckObstacle(gameEngine, x, y, 2));
+
+
+	car(1000);
+	bin3(2000);
+	bin1(3000);
+	bin2(3750); //truck(4000);
+	car(5000);
+	bin2(6000);
+	bin1(6850); //truck(7000);
+	car(8000);
+	bin3(9000);
+	bin1(9800); car(10000);
+	bin2(10800); //truck(11000);
+}
 
 const initGame = () => {
 	// Set the size of the canvas
@@ -95,21 +119,21 @@ const initGame = () => {
 
 	// Load assets
 	
-	assetManager.queueDownload('../assets/goku/sprites.png')
-	assetManager.queueDownload('../assets/goku/running.png')
-	assetManager.queueDownload('../assets/goku/jumping.png')
+	assetManager.queueDownload('../assets/lvl3/naruto.png')
+	assetManager.queueDownload('../assets/lvl3/chaser.png')
 	assetManager.queueDownload('../assets/goku/obstacle.png')
 	assetManager.queueDownload('../assets/buu/buu.png')
 	assetManager.queueDownload('../assets/shuriken/shuriken.png')
 
 	assetManager.queueDownload('../assets/boxes_barrels.png')
+	assetManager.queueDownload('../assets/lvl3/car.png')
+	assetManager.queueDownload('../assets/lvl3/truck.png')
+	assetManager.queueDownload('../assets/lvl3/bins.png')
+	assetManager.queueDownload('../assets/portal.png')
 
-	assetManager.queueDownload('../assets/bg/hills/layer_01.png')
-	assetManager.queueDownload('../assets/bg/hills/layer_02.png')
-	assetManager.queueDownload('../assets/bg/hills/layer_03.png')
-	assetManager.queueDownload('../assets/bg/hills/layer_04.png')
-	assetManager.queueDownload('../assets/bg/hills/layer_05.png')
-	assetManager.queueDownload('../assets/bg/hills/layer_06.png')
+	assetManager.queueDownload('../assets/lvl3/bg/1.png')
+	assetManager.queueDownload('../assets/lvl3/bg/2.png')
+	assetManager.queueDownload('../assets/lvl3/bg/3.png')
 
 	// Download assets and start the game
 	assetManager.downloadAll(loadGame)
@@ -119,8 +143,9 @@ const initGame = () => {
 const loadGame = () => {
 	gameEngine = new GameEngine(ctx, assetManager)
 
-	let player = new Goku(gameEngine, 100, 820, 3)
-	let pursuer = new Buu(gameEngine, -250, 875, 0.3)
+	// let player = new Naruto(gameEngine, 100, 820, 3)
+	let player = new Naruto(gameEngine, 100, 820, 3)
+	let pursuer = new Lvl3Chaser(gameEngine, -250, 850, 0.3)
 
 	player.pursuer = pursuer
 	pursuer.target = player
@@ -131,11 +156,26 @@ const loadGame = () => {
 
 	gameEngine.addEntity(new Ground(gameEngine, -1000, 1000, 1))
 	gameEngine.addEntity(player)
-	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 500, 0.15))
+	// gameEngine.addEntity(new Obstacle(gameEngine, 1700, 500, 0.15))
+	// gameEngine.addEntity(new Shuriken(gameEngine, 1700, 905, 0.075))
 	gameEngine.addEntity(new HUD(gameEngine))
-	setTimeout(()=>{gameEngine.addEntity(pursuer)},1000)
+	// gameEngine.addEntity(new CarObstacle(gameEngine, 900, 850, 1))
+	// gameEngine.addEntity(new Bin1Obstacle(gameEngine, 900, 850, .75))
+	// gameEngine.addEntity(new Bin2Obstacle(gameEngine, 900, 850, 1))
+	// gameEngine.addEntity(new Bin3Obstacle(gameEngine, 900, 850, .75))
+	// gameEngine.addEntity(new Bin3Obstacle(gameEngine, 1900, 850, .75))
+	// gameEngine.addEntity(new Bin3Obstacle(gameEngine, 2900, 850, .75))
+
+	createObstacles(gameEngine);
+
+	gameEngine.addEntity(new Portal(gameEngine, 13000, 600, 7))
+
+	setTimeout(()=>{gameEngine.addEntity(pursuer)}, 1000)
 
 	gameEngine.renderInit()
+
+	startGame() // remove
+
 }
 
 const startGame = () => {
@@ -147,7 +187,7 @@ const startGame = () => {
 	audioEl?.play()
 
 	gameEngine.start()
-	spawnObstacle(gameEngine)
+	// spawnObstacle(gameEngine)
 }
 
 // Set canvas and its context to variable
