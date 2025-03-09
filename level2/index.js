@@ -8,6 +8,13 @@ import {Background, BackgroundLayer} from '../classes/Background.js'
 import HUD from '../classes/HUD.js'
 import Gojo from '../classes/Gojo.js'
 import Toji from '../classes/Toji.js'
+import Portal from '../classes/Portal.js'
+import Bin1Obstacle from '../classes/Bin1Obstacle.js'
+import Bin2Obstacle from '../classes/Bin2Obstacle.js'
+import Bin3Obstacle from '../classes/Bin3Obstacle.js'
+import TruckObstacle from '../classes/TruckObstacle.js'
+import CarObstacle from '../classes/CarObstacle.js'
+
 
 // Initialize function for dinamically scalling the canvas to fit the window
 const resizeCanvas = () => {
@@ -28,61 +35,26 @@ const createBg = (game) => {
 	return new Background(game, layers)
 }
 
-const spawnObstacle = (gameEngine) => {
-    const minSpawnTime = 2000;
-    const maxSpawnTime = 3000;
+const createObstacles = (gameEngine) => {
+	const bin1 = (x, y = 850) => gameEngine.addEntity(new Bin1Obstacle(gameEngine, x, y, .75));
+	const bin2 = (x, y = 850) => gameEngine.addEntity(new Bin2Obstacle(gameEngine, x, y, 1));
+	const bin3 = (x, y = 850) => gameEngine.addEntity(new Bin3Obstacle(gameEngine, x, y, .75));
+	const car = (x, y = 850) => gameEngine.addEntity(new CarObstacle(gameEngine, x, y, 1));
+	const truck = (x, y = 750) => gameEngine.addEntity(new TruckObstacle(gameEngine, x, y, 2));
 
-    const boxWidth = 90;
-    const groundY = 900;
-    const stairHeight = 3;
-    const spawnRange = 300; // Max extra space in front of player
-    const maxRetries = 10;  // Prevent infinite loops
 
-    const spawn = () => {
-        let randomX;
-        let isOverlapping;
-        let attempts = 0;
-
-        do {
-            randomX = gameEngine.player.x + 800 + Math.random() * spawnRange;
-            isOverlapping = gameEngine.entities.some(entity =>
-                entity instanceof BoxObstacle &&
-                Math.abs(entity.x - randomX) < boxWidth // Check if too close
-            );
-            attempts++;
-        } while (isOverlapping && attempts < maxRetries);
-
-        // If no valid space is found, skip spawning this time
-        if (isOverlapping) {
-            console.log("No space available for spawning, skipping this cycle.");
-        } else {
-            const stackHeight = Math.floor(Math.random() * stairHeight) + 1;
-            const isStairShape = Math.random() < 0.25;
-
-            if (isStairShape) {
-                for (let i = 0; i < stairHeight; i++) {
-                    for (let j = 0; j <= i; j++) {
-                        let boxX = randomX + i * boxWidth;
-                        let boxY = groundY - j * boxWidth;
-                        let obstacle = new BoxObstacle(gameEngine, boxX, boxY, 5);
-                        gameEngine.addEntity(obstacle);
-                    }
-                }
-            } else {
-                for (let i = 0; i < stackHeight; i++) {
-                    let boxY = groundY - i * boxWidth;
-                    let obstacle = new BoxObstacle(gameEngine, randomX, boxY, 5);
-                    gameEngine.addEntity(obstacle);
-                }
-            }
-        }
-
-        const nextSpawnTime = Math.random() * (maxSpawnTime - minSpawnTime) + minSpawnTime;
-        setTimeout(spawn, nextSpawnTime);
-    };
-
-    spawn();
-};
+	car(1000);
+	bin3(2000);
+	bin1(3000);
+	bin2(3750); //truck(4000);
+	car(5000);
+	bin2(6000);
+	bin1(6850); //truck(7000);
+	car(8000);
+	bin3(9000);
+	bin1(9800); car(10000);
+	bin2(10800); //truck(11000);
+}
 
 
 
@@ -106,6 +78,10 @@ const initGame = () => {
 	assetManager.queueDownload('../assets/gojo/toji run.png')
 
 	assetManager.queueDownload('../assets/boxes_barrels.png')
+	assetManager.queueDownload('../assets/lvl3/car.png')
+	assetManager.queueDownload('../assets/lvl3/truck.png')
+	assetManager.queueDownload('../assets/lvl3/bins.png')
+	assetManager.queueDownload('../assets/portal.png')
 
 	assetManager.queueDownload('../assets/gojo/SynthCitiesGodot/CityLayers/back.png')
 	assetManager.queueDownload('../assets/gojo/SynthCitiesGodot/CityLayers/foreground.png')
@@ -121,7 +97,7 @@ const loadGame = () => {
 	gameEngine = new GameEngine(ctx, assetManager)
 
 	let player = new Gojo(gameEngine, 200, 820, 3)
-	let pursuer = new Toji(gameEngine, -200, 780, 0.3)
+	let pursuer = new Toji(gameEngine, -220, 780, 0.3)
 
 	player.pursuer = pursuer
 	pursuer.target = player
@@ -133,6 +109,8 @@ const loadGame = () => {
 	gameEngine.addEntity(new Ground(gameEngine, -1000, 1000, 1))
 	gameEngine.addEntity(player)
 	gameEngine.addEntity(new HUD(gameEngine))
+	gameEngine.addEntity(new Portal(gameEngine, 13200, 600, 7, "/level3/index.html"))
+	createObstacles(gameEngine);
 	setTimeout(()=>{gameEngine.addEntity(pursuer)},1000)
 
 	gameEngine.renderInit()
@@ -147,7 +125,7 @@ const startGame = () => {
 	audioEl?.play()
 
 	gameEngine.start()
-	spawnObstacle(gameEngine)
+	
 }
 
 // Set canvas and its context to variable

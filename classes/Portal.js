@@ -3,6 +3,7 @@ import Animator from './Animator.js'
 import gameProperties from './gameProperties.js'
 import Naruto from './Naruto.js'
 import Goku from './Goku.js'
+import Gojo from './Gojo.js'
 
 class Portal extends Entity {
 	/**
@@ -48,7 +49,7 @@ class Portal extends Entity {
 	}
 
 	onCollision(entity) {
-		if (entity instanceof Naruto || entity instanceof Goku) {
+		if (entity instanceof Naruto || entity instanceof Goku || entity instanceof Gojo) {
 			window.location.href = this.nextPage;
 		}
 	}

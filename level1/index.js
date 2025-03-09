@@ -38,39 +38,47 @@ const spawnObstacle = (gameEngine) => {
     const maxSpawnTime = 3000;
 
     const boxWidth = 90;
-    const groundY = 905;
+    const groundY = 900;
     const stairHeight = 3;
     const spawnRange = 300; // Max extra space in front of player
+    const maxRetries = 10;  // Prevent infinite loops
 
     const spawn = () => {
         let randomX;
         let isOverlapping;
-        
+        let attempts = 0;
+
         do {
             randomX = gameEngine.player.x + 800 + Math.random() * spawnRange;
-            isOverlapping = gameEngine.entities.some(entity => 
-                entity instanceof BoxObstacle && 
+            isOverlapping = gameEngine.entities.some(entity =>
+                entity instanceof BoxObstacle &&
                 Math.abs(entity.x - randomX) < boxWidth // Check if too close
             );
-        } while (isOverlapping); // Keep generating until we find a free space
+            attempts++;
+        } while (isOverlapping && attempts < maxRetries);
 
-        const stackHeight = Math.floor(Math.random() * stairHeight) + 1;
-        const isStairShape = Math.random() > 0.25;
+        // If no valid space is found, skip spawning this time
+        if (isOverlapping) {
+            console.log("No space available for spawning, skipping this cycle.");
+        } else {
+            const stackHeight = Math.floor(Math.random() * stairHeight) + 1;
+            const isStairShape = Math.random() < 0.25;
 
-        if (isStairShape) {
-            for (let i = 0; i < stairHeight; i++) {
-                for (let j = 0; j <= i; j++) {
-                    let boxX = randomX + i * boxWidth;
-                    let boxY = groundY - j * boxWidth;
-                    let obstacle = new BoxObstacle(gameEngine, boxX, boxY, 5);
+            if (isStairShape) {
+                for (let i = 0; i < stairHeight; i++) {
+                    for (let j = 0; j <= i; j++) {
+                        let boxX = randomX + i * boxWidth;
+                        let boxY = groundY - j * boxWidth;
+                        let obstacle = new BoxObstacle(gameEngine, boxX, boxY, 5);
+                        gameEngine.addEntity(obstacle);
+                    }
+                }
+            } else {
+                for (let i = 0; i < stackHeight; i++) {
+                    let boxY = groundY - i * boxWidth;
+                    let obstacle = new BoxObstacle(gameEngine, randomX, boxY, 5);
                     gameEngine.addEntity(obstacle);
                 }
-            }
-        } else {
-            for (let i = 0; i < stackHeight; i++) {
-                let boxY = groundY - i * boxWidth;
-                let obstacle = new BoxObstacle(gameEngine, randomX, boxY, 5);
-                gameEngine.addEntity(obstacle);
             }
         }
 
@@ -79,7 +87,7 @@ const spawnObstacle = (gameEngine) => {
     };
 
     spawn();
-}
+};
 
 
 const initGame = () => {
@@ -138,7 +146,7 @@ const loadGame = () => {
 	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 400, 0.15))
 	gameEngine.addEntity(new HUD(gameEngine))
 
-	gameEngine.addEntity(new Portal(gameEngine, 13200, 600, 7, "/level3/index.html"))
+	gameEngine.addEntity(new Portal(gameEngine, 13200, 600, 7, "/level2/index.html"))
 
 	setTimeout(()=>{gameEngine.addEntity(pursuer)},1000)
 

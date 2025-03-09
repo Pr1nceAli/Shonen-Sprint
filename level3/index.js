@@ -9,10 +9,14 @@ import BoxObstacle from '../classes/BoxObstacle.js'
 import Ground from '../classes/Ground.js'
 import {Background, BackgroundLayer} from '../classes/Background.js'
 import HUD from '../classes/HUD.js'
-import CarObstacle from '../classes/CarObstacle.js'
-import Bin1Obstacle from '../classes/Bin1Obstacle.js'
-import Bin2Obstacle from '../classes/Bin2Obstacle.js'
-import Bin3Obstacle from '../classes/Bin3Obstacle.js'
+import Isbou1 from '../classes/Isbou1.js'
+import Isbou2 from '../classes/Isbou2.js'
+import Isbou3 from '../classes/Isbou3.js'
+import Konan from '../classes/Konan.js'
+import Sasori from '../classes/Sasori.js'
+import Puppet from '../classes/Puppet.js'
+import Pain from '../classes/Pain.js'
+import Rock from '../classes/Rock.js'
 import Lvl3Chaser from '../classes/Lvl3Chaser.js'
 import TruckObstacle from '../classes/TruckObstacle.js'
 import Portal from '../classes/Portal.js'
@@ -28,9 +32,9 @@ const resizeCanvas = () => {
 
 const createBg = (game) => {
 	let layers = [
-		new BackgroundLayer(game.assetManager.getAsset('../assets/lvl3/bg/1.png'), .1),
-		new BackgroundLayer(game.assetManager.getAsset('../assets/lvl3/bg/2.png'), .5),
-		new BackgroundLayer(game.assetManager.getAsset('../assets/lvl3/bg/3.png'), 1)
+		new BackgroundLayer(game.assetManager.getAsset('../assets/gojo/cyberpunk-street-files/Layers/back.png'), .1),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/gojo/cyberpunk-street-files/Layers/buildings.png'), .5),
+		new BackgroundLayer(game.assetManager.getAsset('../assets/gojo/cyberpunk-street-files/Layers/front.png'), 1)
 	]
 
 	return new Background(game, layers)
@@ -85,24 +89,33 @@ const spawnObstacle = (gameEngine) => {
 }
 
 const createObstacles = (gameEngine) => {
-	const bin1 = (x, y = 850) => gameEngine.addEntity(new Bin1Obstacle(gameEngine, x, y, .75));
-	const bin2 = (x, y = 850) => gameEngine.addEntity(new Bin2Obstacle(gameEngine, x, y, 1));
-	const bin3 = (x, y = 850) => gameEngine.addEntity(new Bin3Obstacle(gameEngine, x, y, .75));
-	const car = (x, y = 850) => gameEngine.addEntity(new CarObstacle(gameEngine, x, y, 1));
-	const truck = (x, y = 750) => gameEngine.addEntity(new TruckObstacle(gameEngine, x, y, 2));
+	const iso1 = (x, y = 830) => gameEngine.addEntity(new Isbou1(gameEngine, x, y, .8));
+	const iso2 = (x, y = 850) => gameEngine.addEntity(new Isbou2(gameEngine, x, y, .8));
+	const iso3 = (x, y = 825) => gameEngine.addEntity(new Isbou3(gameEngine, x, y, .8));
+	const konan = (x, y = 810) => gameEngine.addEntity(new Konan(gameEngine, x, y, 1.5));
+	const pain = (x, y = 855) => gameEngine.addEntity(new Pain(gameEngine, x, y, 1.1));
+	const sasori = (x, y = 865  ) => gameEngine.addEntity(new Sasori(gameEngine, x, y, 1.5));
+	const puppet = (x, y = 730) => gameEngine.addEntity(new Puppet(gameEngine, x, y, 1.5));
+	const rock = (x, y = 855) => gameEngine.addEntity(new Rock(gameEngine, x, y, 1));
 
 
-	car(1000);
-	bin3(2000);
-	bin1(3000);
-	bin2(3750); //truck(4000);
-	car(5000);
-	bin2(6000);
-	bin1(6850); //truck(7000);
-	car(8000);
-	bin3(9000);
-	bin1(9800); car(10000);
-	bin2(10800); //truck(11000);
+	iso1(1000);
+	sasori(2000);
+	puppet(2400);
+	iso2(3000);
+	rock(3750); //truck(4000);
+	iso3(5000);
+	sasori(6000);
+	puppet(6400);
+	konan(7000); //truck(7000);
+	iso1(8000);
+	rock(9000);
+	iso2(9800); 
+	konan(10400);
+	rock(10800);
+	rock(11200);
+	iso1(11600);
+	pain(12400); //truck(11000);
 }
 
 const initGame = () => {
@@ -126,14 +139,19 @@ const initGame = () => {
 	assetManager.queueDownload('../assets/shuriken/shuriken.png')
 
 	assetManager.queueDownload('../assets/boxes_barrels.png')
-	assetManager.queueDownload('../assets/lvl3/car.png')
-	assetManager.queueDownload('../assets/lvl3/truck.png')
-	assetManager.queueDownload('../assets/lvl3/bins.png')
+	assetManager.queueDownload('../assets/naruto/isbou 1.png')
+	assetManager.queueDownload('../assets/naruto/isbou 2.png')
+	assetManager.queueDownload('../assets/naruto/isbou 3.png')
+	assetManager.queueDownload('../assets/naruto/rock.png')
+	assetManager.queueDownload('../assets/naruto/konan.png')
+	assetManager.queueDownload('../assets/naruto/pain.png')
+	assetManager.queueDownload('../assets/naruto/sasori.png')
+	assetManager.queueDownload('../assets/naruto/puppet.png')
 	assetManager.queueDownload('../assets/portal.png')
 
-	assetManager.queueDownload('../assets/lvl3/bg/1.png')
-	assetManager.queueDownload('../assets/lvl3/bg/2.png')
-	assetManager.queueDownload('../assets/lvl3/bg/3.png')
+	assetManager.queueDownload('../assets/gojo/cyberpunk-street-files/Layers/back.png')
+	assetManager.queueDownload('../assets/gojo/cyberpunk-street-files/Layers/buildings.png')
+	assetManager.queueDownload('../assets/gojo/cyberpunk-street-files/Layers/front.png')
 
 	// Download assets and start the game
 	assetManager.downloadAll(loadGame)
@@ -146,7 +164,7 @@ const loadGame = () => {
 	gameEngine = new GameEngine(ctx, assetManager)
 
 	// let player = new Naruto(gameEngine, 100, 820, 3)
-	let player = new Naruto(gameEngine, 100, 820, 3)
+	let player = new Naruto(gameEngine, 100, 900, 3)
 	let pursuer = new Lvl3Chaser(gameEngine, -250, 850, 0.3)
 
 	player.pursuer = pursuer
@@ -155,14 +173,15 @@ const loadGame = () => {
 	gameEngine.player = player
 
 	gameEngine.addEntity(createBg(gameEngine), 100)
-
-	gameEngine.addEntity(new Ground(gameEngine, -1000, 1000, 1))
+	gameEngine.addEntity(new Ground(gameEngine, -1000,1000, 1))
 	gameEngine.addEntity(player)
 	gameEngine.addEntity(new HUD(gameEngine))
 
-	createObstacles(gameEngine);
+	
 
 	gameEngine.addEntity(new Portal(gameEngine, 13000, 600, 7, "/win.html"))
+	
+	createObstacles(gameEngine);
 
 	setTimeout(()=>{gameEngine.addEntity(pursuer)}, 1000)
 

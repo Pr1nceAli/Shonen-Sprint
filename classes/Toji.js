@@ -27,7 +27,7 @@ class Toji extends Entity {
 		const running = this.gameEngine.assetManager.getAsset('../assets/gojo/toji run.png')
 		// Create the animations
 
-		this.running = new Animator(running, 0, 22, 218, 180, 10, 0.10)
+		this.running = new Animator(running, 0, 22, 218, 180, 10, 0.1)
 		
 	}
 
