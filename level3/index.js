@@ -156,26 +156,17 @@ const loadGame = () => {
 
 	gameEngine.addEntity(new Ground(gameEngine, -1000, 1000, 1))
 	gameEngine.addEntity(player)
-	// gameEngine.addEntity(new Obstacle(gameEngine, 1700, 500, 0.15))
-	// gameEngine.addEntity(new Shuriken(gameEngine, 1700, 905, 0.075))
 	gameEngine.addEntity(new HUD(gameEngine))
-	// gameEngine.addEntity(new CarObstacle(gameEngine, 900, 850, 1))
-	// gameEngine.addEntity(new Bin1Obstacle(gameEngine, 900, 850, .75))
-	// gameEngine.addEntity(new Bin2Obstacle(gameEngine, 900, 850, 1))
-	// gameEngine.addEntity(new Bin3Obstacle(gameEngine, 900, 850, .75))
-	// gameEngine.addEntity(new Bin3Obstacle(gameEngine, 1900, 850, .75))
-	// gameEngine.addEntity(new Bin3Obstacle(gameEngine, 2900, 850, .75))
 
 	createObstacles(gameEngine);
 
-	gameEngine.addEntity(new Portal(gameEngine, 13000, 600, 7))
+	gameEngine.addEntity(new Portal(gameEngine, 13000, 600, 7, "/win.html"))
 
 	setTimeout(()=>{gameEngine.addEntity(pursuer)}, 1000)
 
 	gameEngine.renderInit()
 
-	startGame() // remove
-
+	// startGame() // remove
 }
 
 const startGame = () => {

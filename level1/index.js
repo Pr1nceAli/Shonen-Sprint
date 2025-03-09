@@ -9,6 +9,7 @@ import BoxObstacle from '../classes/BoxObstacle.js'
 import Ground from '../classes/Ground.js'
 import {Background, BackgroundLayer} from '../classes/Background.js'
 import HUD from '../classes/HUD.js'
+import Portal from '../classes/Portal.js'
 
 // Initialize function for dinamically scalling the canvas to fit the window
 const resizeCanvas = () => {
@@ -103,6 +104,7 @@ const initGame = () => {
 	assetManager.queueDownload('../assets/shuriken/shuriken.png')
 
 	assetManager.queueDownload('../assets/boxes_barrels.png')
+	assetManager.queueDownload('../assets/portal.png')
 
 	assetManager.queueDownload('../assets/bg/hills/layer_01.png')
 	assetManager.queueDownload('../assets/bg/hills/layer_02.png')
@@ -131,8 +133,11 @@ const loadGame = () => {
 
 	gameEngine.addEntity(new Ground(gameEngine, -1000, 1000, 1))
 	gameEngine.addEntity(player)
-	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 500, 0.15))
+	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 400, 0.15))
 	gameEngine.addEntity(new HUD(gameEngine))
+
+	gameEngine.addEntity(new Portal(gameEngine, 13200, 600, 7, "/level3/index.html"))
+
 	setTimeout(()=>{gameEngine.addEntity(pursuer)},1000)
 
 	gameEngine.renderInit()

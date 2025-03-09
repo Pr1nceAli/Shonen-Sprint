@@ -156,8 +156,9 @@ class Naruto extends Entity {
 		if (otherEntity instanceof Buu || otherEntity instanceof Lvl3Chaser || otherEntity instanceof Obstacle || otherEntity instanceof Shuriken) {
 			this.gameEngine.running = false;
 
-			alert('Game over!')
-			window.location.reload()
+			// alert('Game over!')
+			// window.location.reload()
+			window.location.href = '/game_over.html?level=3';
 		}
 
 		

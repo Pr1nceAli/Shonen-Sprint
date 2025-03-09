@@ -1,6 +1,8 @@
 import Entity from './Entity.js'
 import Animator from './Animator.js'
 import gameProperties from './gameProperties.js'
+import Naruto from './Naruto.js'
+import Goku from './Goku.js'
 
 class Portal extends Entity {
 	/**
@@ -10,13 +12,14 @@ class Portal extends Entity {
 	 * @param {number} y - The y coordinate of the entity.
 	 * @param {number} scale - The scale of the entity.
 	 */
-	constructor(gameEngine, x = 0, y = 0, scale = 1) {
+	constructor(gameEngine, x = 0, y = 0, scale = 1, nextPage = '') {
 		super(gameEngine, x, y, scale)
 
 		this.width = 64
 		this.height = 70
 		this.paddingX = 5
 		this.paddingY = 5
+		this.nextPage = nextPage;
 
 		this.loadSpriteSheets()
 	}
@@ -42,6 +45,12 @@ class Portal extends Entity {
 	draw(ctx) {
 		let [screenX, screenY] = this.gameEngine.camera.getScreenPosition(this);
 		this.sprite.drawFrame(this.gameEngine.clockTick, ctx, screenX + 128, screenY, this.scale)
+	}
+
+	onCollision(entity) {
+		if (entity instanceof Naruto || entity instanceof Goku) {
+			window.location.href = this.nextPage;
+		}
 	}
 }
 

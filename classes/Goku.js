@@ -3,6 +3,7 @@ import Animator from './Animator.js'
 import Buu from './Buu.js';
 import Obstacle from './Obstacle.js';
 import Shuriken from './Shuriken.js';
+import Lvl3Chaser from './Lvl3Chaser.js';
 
 class Goku extends Entity {
 	/**
@@ -153,14 +154,13 @@ class Goku extends Entity {
 	}
 
 	onCollision(otherEntity) {
-		if (otherEntity instanceof Buu || otherEntity instanceof Obstacle || otherEntity instanceof Shuriken) {
+		if (otherEntity instanceof Buu || otherEntity instanceof Lvl3Chaser || otherEntity instanceof Obstacle || otherEntity instanceof Shuriken) {
 			this.gameEngine.running = false;
 
-			alert('Game over!')
-			window.location.reload()
+			// alert('Game over!')
+			// window.location.reload()
+			window.location.href = '/game_over.html?level=1';
 		}
-
-		
 	}
 }
 
