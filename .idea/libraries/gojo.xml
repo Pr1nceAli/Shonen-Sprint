@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="gojo">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Shonen-Sprint-main/assets/gojo/cyberpunk-street-files.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Shonen-Sprint-main/assets/gojo/SynthCitiesGodot.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
