@@ -137,6 +137,8 @@ const initGame = () => {
 
 	// Download assets and start the game
 	assetManager.downloadAll(loadGame)
+
+	document.getElementById("music").volume = 0.1;
 }
 
 // Initialize function to load the game
