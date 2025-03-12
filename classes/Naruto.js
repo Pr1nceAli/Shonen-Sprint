@@ -158,7 +158,7 @@ class Naruto extends Entity {
 
 			// alert('Game over!')
 			// window.location.reload()
-			window.location.href = '/game_over.html?level=3';
+			window.location.href = '../game_over.html?level=3';
 		}
 
 		

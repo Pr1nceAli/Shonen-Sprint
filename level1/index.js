@@ -146,7 +146,7 @@ const loadGame = () => {
 	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 400, 0.15))
 	gameEngine.addEntity(new HUD(gameEngine))
 
-	gameEngine.addEntity(new Portal(gameEngine, 13200, 600, 7, "/level2/index.html"))
+	gameEngine.addEntity(new Portal(gameEngine, 13200, 600, 7, "../level2/index.html"))
 
 	setTimeout(()=>{gameEngine.addEntity(pursuer)},1000)
 
