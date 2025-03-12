@@ -158,8 +158,9 @@ class Gojo extends Entity {
 		if (otherEntity instanceof Toji || otherEntity instanceof Obstacle) {
 			this.gameEngine.running = false;
 
-			alert('Game over!')
-			window.location.reload()
+			//alert('Game over!')
+			//window.location.reload()
+			window.location.href = './../game_over.html?level=2';
 		}
 
 		
