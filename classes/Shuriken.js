@@ -10,14 +10,14 @@ class Shuriken extends Entity {
 	 * @param {number} y - The y coordinate of the entity.
 	 * @param {number} scale - The scale of the entity.
 	 */
-	constructor(gameEngine, x = 0, y = 0, scale = 1) {
+	constructor(gameEngine, x = 0, y = 0, scale = 1, velocity = 350) {
 		super(gameEngine, x, y, scale)
 
 		this.width = 1395
 		this.height = 1395
 		this.paddingX = 5
 		this.paddingY = 5
-		this.velocity = 350
+		this.velocity = velocity
 		this.rotationSpeed = 1
 
 		this.loadSpriteSheets()
@@ -39,8 +39,12 @@ class Shuriken extends Entity {
 
 		let [sx, sy] = this.gameEngine.camera.getScreenPosition(this);
 
-		if(sx < 0) 
-			this.x += (this.gameEngine.camera.getWidth() + this.width);
+		// if(sx < 0) 
+		// 	this.x += (this.gameEngine.camera.getWidth() + this.width);
+
+		if (sx < 0) {
+			this.removeFromWorld = true;
+		}
 	}
 
 	/**

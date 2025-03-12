@@ -263,6 +263,10 @@ class GameEngine {
 							}
 							
 							entity.onCollision(otherEntity)
+							
+							if (otherEntity.onCollision) {
+								otherEntity.onCollision(entity);
+							}
 						}
 					}
 				}

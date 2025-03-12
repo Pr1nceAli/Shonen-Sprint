@@ -9,6 +9,7 @@ import BoxObstacle from '../classes/BoxObstacle.js'
 import Ground from '../classes/Ground.js'
 import {Background, BackgroundLayer} from '../classes/Background.js'
 import HUD from '../classes/HUD.js'
+import Portal from '../classes/Portal.js'
 
 // Initialize function for dinamically scalling the canvas to fit the window
 const resizeCanvas = () => {
@@ -33,44 +34,61 @@ const createBg = (game) => {
 }
 
 const spawnObstacle = (gameEngine) => {
-    const minSpawnTime = 2000 // Minimum time between spawns (1 sec)
-    const maxSpawnTime = 3000 // Maximum time between spawns (3 sec)
+    const minSpawnTime = 2000;
+    const maxSpawnTime = 3000;
 
-    const boxWidth = 90 // Width of a single box
-    const groundY = 905 // Y position for the ground box
-    const stairHeight = 3 // Maximum vertical stack height
+    const boxWidth = 90;
+    const groundY = 900;
+    const stairHeight = 3;
+    const spawnRange = 300; // Max extra space in front of player
+    const maxRetries = 10;  // Prevent infinite loops
 
     const spawn = () => {
-        const randomX = gameEngine.player.x + 800 + Math.random() * 300
-        const stackHeight = Math.floor(Math.random() * stairHeight) + 1 
+        let randomX;
+        let isOverlapping;
+        let attempts = 0;
 
-      
-        const isStairShape = Math.random() > 0.25
+        do {
+            randomX = gameEngine.player.x + 800 + Math.random() * spawnRange;
+            isOverlapping = gameEngine.entities.some(entity =>
+                entity instanceof BoxObstacle &&
+                Math.abs(entity.x - randomX) < boxWidth // Check if too close
+            );
+            attempts++;
+        } while (isOverlapping && attempts < maxRetries);
 
-        if (isStairShape) {
-            for (let i = 0; i < stairHeight; i++) {
-				for (let j = 0; j <= i; j++) { 
-					let boxX = randomX + i * boxWidth // Shift right for each step
-					let boxY = groundY - j * boxWidth // Stack boxes under each step
-					let obstacle = new BoxObstacle(gameEngine, boxX, boxY, 5)
-					gameEngine.addEntity(obstacle)
-				}
-			}
+        // If no valid space is found, skip spawning this time
+        if (isOverlapping) {
+            console.log("No space available for spawning, skipping this cycle.");
         } else {
-            // Normal stacked boxes
-            for (let i = 0; i < stackHeight; i++) {
-                let boxY = groundY - i * boxWidth // Stack boxes upwards
-                let obstacle = new BoxObstacle(gameEngine, randomX, boxY, 5)
-                gameEngine.addEntity(obstacle)
+            const stackHeight = Math.floor(Math.random() * stairHeight) + 1;
+            const isStairShape = Math.random() < 0.25;
+
+            if (isStairShape) {
+                for (let i = 0; i < stairHeight; i++) {
+                    for (let j = 0; j <= i; j++) {
+                        let boxX = randomX + i * boxWidth;
+                        let boxY = groundY - j * boxWidth;
+                        let obstacle = new BoxObstacle(gameEngine, boxX, boxY, 5);
+                        gameEngine.addEntity(obstacle);
+                    }
+                }
+            } else {
+                for (let i = 0; i < stackHeight; i++) {
+                    let boxY = groundY - i * boxWidth;
+                    let obstacle = new BoxObstacle(gameEngine, randomX, boxY, 5);
+                    gameEngine.addEntity(obstacle);
+                }
             }
         }
 
-        const nextSpawnTime = Math.random() * (maxSpawnTime - minSpawnTime) + minSpawnTime
-        setTimeout(spawn, nextSpawnTime)
-    }
+        const nextSpawnTime = Math.random() * (maxSpawnTime - minSpawnTime) + minSpawnTime;
+        setTimeout(spawn, nextSpawnTime);
+    };
 
-    spawn() // Start spawning obstacles
-}
+    spawn();
+};
+
 
 const initGame = () => {
 	// Set the size of the canvas
@@ -94,6 +112,7 @@ const initGame = () => {
 	assetManager.queueDownload('../assets/shuriken/shuriken.png')
 
 	assetManager.queueDownload('../assets/boxes_barrels.png')
+	assetManager.queueDownload('../assets/portal.png')
 
 	assetManager.queueDownload('../assets/bg/hills/layer_01.png')
 	assetManager.queueDownload('../assets/bg/hills/layer_02.png')
@@ -104,6 +123,8 @@ const initGame = () => {
 
 	// Download assets and start the game
 	assetManager.downloadAll(loadGame)
+
+	document.getElementById("music").volume = 0.1;
 }
 
 // Initialize function to load the game
@@ -122,9 +143,11 @@ const loadGame = () => {
 
 	gameEngine.addEntity(new Ground(gameEngine, -1000, 1000, 1))
 	gameEngine.addEntity(player)
-	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 500, 0.15))
-	gameEngine.addEntity(new Shuriken(gameEngine, 1700, 905, 0.075))
+	gameEngine.addEntity(new Obstacle(gameEngine, 1700, 400, 0.15))
 	gameEngine.addEntity(new HUD(gameEngine))
+
+	gameEngine.addEntity(new Portal(gameEngine, 13200, 600, 7, "/level2/index.html"))
+
 	setTimeout(()=>{gameEngine.addEntity(pursuer)},1000)
 
 	gameEngine.renderInit()
